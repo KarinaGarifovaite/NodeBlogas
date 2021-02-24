@@ -1,5 +1,4 @@
 // Global Variables
-
 let form = document.querySelector('form')
 
 // Functions
@@ -26,8 +25,7 @@ let registration = async (e) => {
             body: JSON.stringify(data)
         })
         if(response.status != 200) throw await response.json()
-        // window.location.href = './login.html' CIA VELIAU KAI LOGIN ATSIRAS
-        window.location.href = '../pages/main.html'
+         window.location.href = '../pages/login.html'
     }catch(e) {
        console.log(e);
     }
