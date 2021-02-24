@@ -17,7 +17,13 @@
     cursor: pointer;
 }
 
+.logout {
+    color: var(--accent-color);
+}
 
+.logout:hover {
+    border-bottom: 1px solid var(--accent-color);
+}
 
 
 @media screen and (min-width: 768px) {

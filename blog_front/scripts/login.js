@@ -15,15 +15,17 @@ let login = async (e) => {
     try {
         let response = await fetch('http://localhost:3000/blog/author/login', {
             method: 'POST',
-            headers: {"Content-Type": 'application/json'},
+            headers: {
+                "Content-Type": 'application/json'
+            },
             body: JSON.stringify(data)
         })
-        if(response.status != 200) throw await response.json()
+        if (response.status != 200) throw await response.json()
         let token = response.headers.get('author-auth')
         localStorage.setItem('author-auth', token)
         window.location.href = '../pages/author-homepage.html'
-    }catch(e) {
-        if(status = 200) return alert('Incorrect Username or Password')
+    } catch (e) {
+        if (status = 200) return alert('Incorrect Username or Password')
     }
 }
 // Events
