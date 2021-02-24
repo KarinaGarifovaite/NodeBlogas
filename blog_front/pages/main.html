@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main Page</title>
-  </head>
+    <link rel="stylesheet" href="../styles/resets.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/main.css" />
+</head>
 
-  <body>
+<body>
     <header>
-      <nav>
-        <div>LOGO</div>
-        <ul>
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">Write</a></li>
-          <li><a href="#">Sign In</a></li>
-          <li><a href="#">Get Started</a></li>
-        </ul>
-      </nav>
+        <nav class="navigation">
+            <div class="logo">NodeBlog</div>
+            <ul>
+                <li><a class="nav-a" href="#">Our Story</a></li>
+                <li><a class="nav-a" href="#">Write</a></li>
+                <li><a class="nav-a" href="#">Sign In</a></li>
+                <li><a class="nav-a" id="get-started" href="../pages/resigtration.html">Get Started</a></li>
+            </ul>
+        </nav>
     </header>
-    <main></main>
+    <main>
+        <section class="sec-1">
+            <h1>Explore new perspectives</h1>
+            <p>
+                Read and share ideas from independent voices, world-class
+                publications, and experts from around the globe. Everyone's welcome.
+            </p>
+
+            <a href="../pages/resigtration.html">Get Started</a>
+        </section>
+        <hr />
+        <section class="sec-2">
+            <h3>TRENDING SECTION</h3>
+        </section>
+    </main>
     <footer></footer>
-  </body>
+</body>
+
 </html>

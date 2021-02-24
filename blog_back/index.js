@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const routes = require("./routes/routes");
-// const cors = require("cors");
+const cors = require("cors");
 
 mongoose.connect("mongodb://localhost/my_database", {
   useNewUrlParser: true,
@@ -14,10 +14,10 @@ mongoose.connect("mongodb://localhost/my_database", {
 
 app.use(bodyParser.json());
 
-// const corsOptions = {
-//   exposedHeaders: ["todo-auth"],
-// };
-// app.use(cors(corsOptions));
+const corsOptions = {
+  exposedHeaders: ["author-auth"],
+};
+app.use(cors(corsOptions));
 
 app.use("/blog", routes);
 
