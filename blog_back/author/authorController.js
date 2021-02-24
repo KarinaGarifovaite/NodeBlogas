@@ -1,6 +1,6 @@
 const Author = require('./authorModel');
 const bcrypt = require('bcrypt');
-const { response } = require('express');
+const {response}  = require('express');
 const jwt = require('jsonwebtoken');
 
 let signUp = async (req, res) => {
@@ -32,7 +32,26 @@ let login = async (req, res) => {
   }
 };
 
+let logout = async (req, res) => {
+  let token = req.token;
+  let author = req.author;
+
+  try {
+    await author.update({
+      $pull: {
+        sessionToken: {
+          token
+        }
+      }
+    })
+    res.json('logout')
+  }catch(e) {
+    res.status(400).json(e)
+  }
+}
+
 module.exports = {
   signUp,
   login,
+  logout
 };

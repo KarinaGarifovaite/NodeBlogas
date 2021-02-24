@@ -9,5 +9,6 @@ router.get('/', (req, res) => {
 //all Author routes
 router.post('/author/signup', AuthorController.signUp);
 router.post('/author/login', AuthorController.login);
+router.get('/author/logout', UserMiddleware, AuthorController.logout);
 
 module.exports = router;
