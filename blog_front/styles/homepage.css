@@ -1,0 +1,33 @@
+.navigation ul {
+    width: 65%;
+    align-items: center;
+}
+
+.nav-a {
+    display: inline;
+}
+
+.img-conteiner {
+    background-image: url(../assets/blank-profile.png);
+    background-position: center center;
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+
+@media screen and (min-width: 768px) {
+    .navigation ul {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .navigation ul {
+        width: 30%;
+    }
+}
