@@ -43,8 +43,42 @@
             <span class="modal-close__span">&times;</span>
           </div>
           <div class="modalContent__authorInfo">
-            <h1 class="heading-aboutYou">About you</h1>
-            <hr class="hr" />
+            <div class="heading-aboutYou">
+              <h1>About you</h1>
+            </div>
+            <div class="name-surname">
+              <div class="name-surname-inputs">
+                <div>
+                  <label for="name">Name</label>
+                  <input type="text" name="name" id="name" readonly />
+                </div>
+                <div>
+                  <label for="surname">Surname</label>
+                  <input type="text" name="name" id="surname" readonly />
+                </div>
+              </div>
+              <div id="edit-save-buttons">
+                <button class="editBtn">Edit</button>
+                <button class="saveBtn">Save</button>
+              </div>
+            </div>
+            <div class="bio">
+              <div class="bio-text">
+                <label for="bio">Bio</label>
+                <textarea id="bio" rows="4" cols="40" readonly></textarea>
+              </div>
+              <div id="edit-save-buttons">
+                <button class="editBtn">Edit</button>
+                <button class="saveBtn">Save</button>
+              </div>
+            </div>
+            <div class="photo">
+              <div class="photo-lable-container">
+                <p class="photo-label">Photo</p>
+                <p>Click on photo to edit</p>
+              </div>
+              <div class="img-conteiner"></div>
+            </div>
           </div>
         </div>
       </div>
