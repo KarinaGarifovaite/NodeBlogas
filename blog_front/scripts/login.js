@@ -25,7 +25,10 @@ let login = async (e) => {
         localStorage.setItem('author-auth', token)
         window.location.href = '../pages/author-homepage.html'
     } catch (e) {
-        if (status = 200) return alert('Incorrect Username or Password')
+        if (status = 200) {
+            let message = document.querySelector('.message')
+            message.innerText = 'Incorrect Username or Password'
+        }
     }
 }
 // Events
