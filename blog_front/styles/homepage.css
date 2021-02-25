@@ -1,39 +1,89 @@
 .navigation ul {
-    width: 65%;
-    align-items: center;
+  width: 65%;
+  align-items: center;
 }
 
 .nav-a {
-    display: inline;
+  display: inline;
 }
 
 .img-conteiner {
-    background-image: url(../assets/blank-profile.png);
-    background-position: center center;
-    background-size: cover;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    cursor: pointer;
+  background-image: url(../assets/blank-profile.png);
+  background-position: center center;
+  background-size: cover;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .logout {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .logout:hover {
-    border-bottom: 1px solid var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 160px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modalContent {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 75%;
+}
+
+.modal-close__span {
+  color: var(--accent-color);
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close__span:hover,
+.modal-close__span:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-close {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.heading-aboutYou {
+  color: var(--accent-color);
+}
+
+.hr {
+  display: inline-block;
+  width: 100%;
+}
 
 @media screen and (min-width: 768px) {
-    .navigation ul {
-        width: 50%;
-    }
+  .navigation ul {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    .navigation ul {
-        width: 30%;
-    }
+  .navigation ul {
+    width: 30%;
+  }
 }

@@ -26,12 +26,28 @@
             <a class="nav-a" href="#"><i class="far fa-bookmark"></i></a>
           </li>
           <li>
-            <a class="nav-a" href="#"><i class="fas fa-user-edit"></i></a>
+            <a class="nav-a" id="edit-authorInfo" href="#"
+              ><i class="fas fa-user-edit"></i
+            ></a>
           </li>
           <li><a class="nav-a logout">Log Out</a></li>
           <li class="img-conteiner"></li>
         </ul>
       </nav>
     </header>
+
+    <main>
+      <div id="authorModal" class="modal">
+        <div class="modalContent">
+          <div class="modal-close">
+            <span class="modal-close__span">&times;</span>
+          </div>
+          <div class="modalContent__authorInfo">
+            <h1 class="heading-aboutYou">About you</h1>
+            <hr class="hr" />
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

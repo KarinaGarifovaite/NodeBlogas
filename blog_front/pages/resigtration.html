@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registracija</title>
-    <link rel="stylesheet" href="../styles/resets.css">
-    <link rel="stylesheet" href="../styles/header.css">
-    <link rel="stylesheet" href="../styles/registration.css">
+    <link rel="stylesheet" href="../styles/resets.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/registration.css" />
     <script defer src="../scripts/registration.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <nav class="navigation">
-            <div class="logo">NodeBlog</div>
-            <ul>
-                <li><a class="nav-a" href="#">Our Story</a></li>
-                <li><a class="nav-a" href="#">Write</a></li>
-                <li><a class="nav-a" href="./login.html">Log In</a></li>
-                <li><a class="nav-a" id="get-started" href="./resigtration.html">Get Started</a></li>
-            </ul>
-        </nav>
+      <nav class="navigation">
+        <div class="logo">NodeBlog</div>
+        <ul>
+          <li><a class="nav-a" href="#">Our Story</a></li>
+          <li><a class="nav-a" href="#">Write</a></li>
+          <li><a class="nav-a" href="./login.html">Log In</a></li>
+          <li>
+            <a class="nav-a" id="get-started" href="./resigtration.html"
+              >Get Started</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <h3>Join Us!</h3>
-        <h4>Only few steps left:</h4>
-        <form action="#">
-            <label for="username">* Username:</label>
-            <input id="username" type="text" required>
-            <label for="name">* Your name:</label>
-            <input id="name" type="text" required>
-            <label for="surname">* Your surname:</label>
-            <input id="surname" type="text" required>
-            <label for="email">* Email adress:</label>
-            <input id="email" type="email" required>
-            <label for="password">* Password:</label>
-            <input id="password" type="password" required>
-            <p class="required">* Required fields</p>
-            <input id="submit" type="submit" value="Let's get started!">
-        </form>
+      <h3>Join Us!</h3>
+      <h4>Only few steps left:</h4>
+      <form action="#">
+        <label for="username">* Username:</label>
+        <input id="username" type="text" required />
+        <label for="name">* Your name:</label>
+        <input id="name" type="text" required />
+        <label for="surname">* Your surname:</label>
+        <input id="surname" type="text" required />
+        <label for="email">* Email adress:</label>
+        <input id="email" type="email" required />
+        <label for="password">* Password:</label>
+        <input id="password" type="password" required />
+        <p class="required">* Required fields</p>
+        <p class="message"></p>
+        <input id="submit" type="submit" value="Let's get started!" />
+      </form>
 
-        <p class="have-account">Already have an account?</p>
-        <a class="login" href="./login.html">Log in!</a>
+      <p class="have-account">Already have an account?</p>
+      <a class="login" href="./login.html">Log in!</a>
     </main>
-</body>
-
+  </body>
 </html>
