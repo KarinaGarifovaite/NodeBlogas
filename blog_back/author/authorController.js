@@ -1,6 +1,6 @@
 const Author = require('./authorModel');
 const bcrypt = require('bcrypt');
-const {response}  = require('express');
+const { response } = require('express');
 const jwt = require('jsonwebtoken');
 
 let signUp = async (req, res) => {
@@ -40,18 +40,71 @@ let logout = async (req, res) => {
     await author.update({
       $pull: {
         sessionToken: {
-          token
-        }
-      }
-    })
-    res.json('logout')
-  }catch(e) {
-    res.status(400).json(e)
+          token,
+        },
+      },
+    });
+    res.json('logout');
+  } catch (e) {
+    res.status(400).json(e);
   }
-}
+};
+
+let saveAuthorPhoto = async (req, res) => {
+  // console.log('save profile photo begin');
+  let token = req.header('author-auth');
+  // console.log(token);
+  try {
+    let savedPhoto = await Author.findOneAndUpdate(
+      { 'sessionToken.token': token },
+      { avatarURL: req.file.path },
+      {
+        new: true,
+      }
+    );
+    res.json(savedPhoto);
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
+
+let saveAuthorBio = async (req, res) => {
+  let token = req.header('author-auth');
+  try {
+    let savedBio = await Author.findOneAndUpdate(
+      { 'sessionToken.token': token },
+      { bio: req.body.bio },
+      {
+        new: true,
+      }
+    );
+    res.json(savedBio);
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
+
+let getAuthorInfo = async (req, res) => {
+  let token = req.header('author-auth');
+  try {
+    let author = await Author.findOne({ 'sessionToken.token': token });
+    res.json([
+      author.avatarURL,
+      author.bio,
+      author.name,
+      author.surname,
+      author.username,
+    ]);
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
 
 module.exports = {
   signUp,
   login,
-  logout
+  logout,
+  saveAuthorPhoto,
+  getAuthorInfo,
+  saveAuthorBio,
 };
