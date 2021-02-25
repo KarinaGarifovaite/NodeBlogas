@@ -31,6 +31,10 @@
     color: var(--accent-color);
 }
 
+#log-in {
+    display: inline;
+}
+
 #get-started {
     padding: 15px;
     color: var(--light-color);
@@ -38,7 +42,7 @@
     font-weight: 500;
     font-size: 0.9em;
     border-radius: 2px;
-    display: block;
+    display: inline;
 }
 
 #get-started:hover {

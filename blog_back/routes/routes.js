@@ -58,6 +58,8 @@ router.post('/author/bio', UserMiddleware, AuthorController.saveAuthorBio);
 
 router.get('/author', UserMiddleware, AuthorController.getAuthorInfo);
 
+router.patch('/author', UserMiddleware, AuthorController.updateAuthorName)
+
 //all Publication routes
 
 router.post(
@@ -71,4 +73,8 @@ router.get(
   UserMiddleware,
   PublicationController.getAuthorPublications
 );
+
+router.delete('/publication', PublicationController.deletePublication)
+router.patch('/publication', PublicationController.updatePublication)
+
 module.exports = router;

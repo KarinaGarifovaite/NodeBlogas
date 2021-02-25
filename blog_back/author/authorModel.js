@@ -23,6 +23,7 @@ let AuthorSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: validator.isEmail,
       message: 'Wrong email!',
@@ -34,11 +35,9 @@ let AuthorSchema = new mongoose.Schema({
   avatarURL: {
     type: String,
   },
-  sessionToken: [
-    {
-      token: String,
-    },
-  ],
+  sessionToken: [{
+    token: String,
+  }, ],
 });
 
 AuthorSchema.pre('save', function (next) {

@@ -1,6 +1,6 @@
 const Author = require('./authorModel');
 const bcrypt = require('bcrypt');
-const { response } = require('express');
+// const { response } = require('express');
 const jwt = require('jsonwebtoken');
 
 let signUp = async (req, res) => {
@@ -22,9 +22,13 @@ let login = async (req, res) => {
     let response = await bcrypt.compare(req.body.password, author.password);
     if (!response) throw 'Incorrect password';
     let token = await jwt
-      .sign({ _id: author._id.toHexString() }, 'superDuperSecret')
+      .sign({
+        _id: author._id.toHexString()
+      }, 'superDuperSecret')
       .toString();
-    author.sessionToken.push({ token });
+    author.sessionToken.push({
+      token
+    });
     await author.save();
     res.header('author-auth', token).json(author);
   } catch (e) {
@@ -55,13 +59,13 @@ let saveAuthorPhoto = async (req, res) => {
   let token = req.header('author-auth');
   // console.log(token);
   try {
-    let savedPhoto = await Author.findOneAndUpdate(
-      { 'sessionToken.token': token },
-      { avatarURL: req.file.path },
-      {
-        new: true,
-      }
-    );
+    let savedPhoto = await Author.findOneAndUpdate({
+      'sessionToken.token': token
+    }, {
+      avatarURL: req.file.path
+    }, {
+      new: true,
+    });
     res.json(savedPhoto);
   } catch (e) {
     res.status(400).json(e);
@@ -71,13 +75,13 @@ let saveAuthorPhoto = async (req, res) => {
 let saveAuthorBio = async (req, res) => {
   let token = req.header('author-auth');
   try {
-    let savedBio = await Author.findOneAndUpdate(
-      { 'sessionToken.token': token },
-      { bio: req.body.bio },
-      {
-        new: true,
-      }
-    );
+    let savedBio = await Author.findOneAndUpdate({
+      'sessionToken.token': token
+    }, {
+      bio: req.body.bio
+    }, {
+      new: true,
+    });
     res.json(savedBio);
   } catch (e) {
     res.status(400).json(e);
@@ -87,7 +91,9 @@ let saveAuthorBio = async (req, res) => {
 let getAuthorInfo = async (req, res) => {
   let token = req.header('author-auth');
   try {
-    let author = await Author.findOne({ 'sessionToken.token': token });
+    let author = await Author.findOne({
+      'sessionToken.token': token
+    });
     res.json([
       author.avatarURL,
       author.bio,
@@ -100,6 +106,18 @@ let getAuthorInfo = async (req, res) => {
   }
 };
 
+let updateAuthorName = async (req, res) => {
+  let token = req.header('author-auth');
+  try {
+    let updatedAuthor = await Author.findOneAndUpdate({
+      'sessionToken.token': token
+    }, req.body)
+    res.json(updatedAuthor)
+  } catch (err) {
+    res.status(400).json(err)
+  }
+}
+
 module.exports = {
   signUp,
   login,
@@ -107,4 +125,5 @@ module.exports = {
   saveAuthorPhoto,
   getAuthorInfo,
   saveAuthorBio,
+  updateAuthorName
 };
