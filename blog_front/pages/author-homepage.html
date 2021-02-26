@@ -1,87 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HomePage</title>
-    <script
-      src="https://kit.fontawesome.com/e856a66464.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="../styles/resets.css" />
-    <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/homepage.css" />
-    <script defer src="../scripts/index.js"></script>
-  </head>
 
-  <body>
-    <header>
-      <nav class="navigation">
-        <div class="logo">NodeBlog</div>
-        <ul>
-          <li>
-            <a class="nav-a" href="#"><i class="fas fa-search"></i></a>
-          </li>
-          <li>
-            <a class="nav-a" href="#"><i class="far fa-bookmark"></i></a>
-          </li>
-          <li>
-            <a class="nav-a" id="edit-authorInfo" href="#"
-              ><i class="fas fa-user-edit"></i
-            ></a>
-          </li>
-          <li><a class="nav-a logout">Log Out</a></li>
-          <li class="img-conteiner"></li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomePage</title>
+  <script src="https://kit.fontawesome.com/e856a66464.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles/resets.css" />
+  <link rel="stylesheet" href="../styles/header.css" />
+  <link rel="stylesheet" href="../styles/homepage.css" />
+  <link rel="stylesheet" href="../styles/footer.css">
+  <script defer src="../scripts/currentDate.js"></script>
+  <script defer src="../scripts/homepage.js"></script>
+</head>
 
-    <main>
-      <div id="authorModal" class="modal">
-        <div class="modalContent">
-          <div class="modal-close">
-            <span class="modal-close__span">&times;</span>
+<body>
+  <header>
+    <nav class="navigation">
+      <div class="logo">NodeBlog</div>
+      <ul>
+        <li>
+          <a class="nav-a" href="#"><i class="fas fa-search"></i></a>
+        </li>
+        <li>
+          <a class="nav-a" href="#"><i class="far fa-bookmark"></i></a>
+        </li>
+        <li>
+          <a class="nav-a" id="edit-authorInfo" href="#"><i class="fas fa-user-edit"></i></a>
+        </li>
+        <li><a class="nav-a logout">Log Out</a></li>
+        <li class="img-conteiner"></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="write-publication">
+      <h2>Tell us your story...</h2>
+      <form class="publication-form" action="#">
+        <label class="pub-label" for="title">Publication title:</label>
+        <input type="text" name="title" id="title" required>
+        <textarea required class="publication" rows="2" cols="50" placeholder="Write your story here"></textarea>
+        <input name="pub-file" id="pub-file" type="file">
+        <input type="submit">
+      </form>
+
+    </section>
+    <div id="authorModal" class="modal">
+      <div class="modalContent">
+        <div class="modal-close">
+          <span class="modal-close__span">&times;</span>
+        </div>
+        <div class="modalContent__authorInfo">
+          <div class="heading-aboutYou">
+            <h1>About you</h1>
           </div>
-          <div class="modalContent__authorInfo">
-            <div class="heading-aboutYou">
-              <h1>About you</h1>
-            </div>
-            <div class="name-surname">
-              <div class="name-surname-inputs">
-                <div>
-                  <label for="name">Name</label>
-                  <input type="text" name="name" id="name" readonly />
-                </div>
-                <div>
-                  <label for="surname">Surname</label>
-                  <input type="text" name="name" id="surname" readonly />
-                </div>
+          <div class="name-surname">
+            <div class="name-surname-inputs">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" readonly />
               </div>
-              <div id="edit-save-buttons">
-                <button class="editBtn">Edit</button>
-                <button class="saveBtn">Save</button>
+              <div>
+                <label for="surname">Surname</label>
+                <input type="text" name="name" id="surname" readonly />
               </div>
             </div>
-            <div class="bio">
-              <div class="bio-text">
-                <label for="bio">Bio</label>
-                <textarea id="bio" rows="4" cols="40" readonly></textarea>
-              </div>
-              <div id="edit-save-buttons">
-                <button class="editBtn">Edit</button>
-                <button class="saveBtn">Save</button>
-              </div>
+            <div id="edit-save-buttons">
+              <button class="editBtn">Edit</button>
+              <button class="saveBtn">Save</button>
             </div>
-            <div class="photo">
-              <div class="photo-lable-container">
-                <p class="photo-label">Photo</p>
-                <p>Click on photo to edit</p>
-              </div>
-              <div class="img-conteiner"></div>
+          </div>
+          <div class="bio">
+            <div class="bio-text">
+              <label for="bio">Bio</label>
+              <textarea id="bio" rows="4" cols="40" readonly></textarea>
             </div>
+            <div id="edit-save-buttons">
+              <button class="editBtn">Edit</button>
+              <button class="saveBtn">Save</button>
+            </div>
+          </div>
+          <div class="photo">
+            <div class="photo-lable-container">
+              <p class="photo-label">Photo</p>
+              <p>Click on photo to edit</p>
+            </div>
+            <div class="img-conteiner"></div>
           </div>
         </div>
       </div>
-    </main>
-  </body>
+    </div>
+  </main>
+  <footer>
+    <div>
+      <p id="copyrigts">
+        <span id="current-year"></span> © Visos teisės saugomos
+      </p>
+    </div>
+    <div>
+      <p class="names">Karina Garifovaitė, Erika Butrimanskienė, Evelina Poniatajeva </p>
+    </div>
+  </footer>
+</body>
+
 </html>
