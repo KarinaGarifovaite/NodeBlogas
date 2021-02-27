@@ -4,12 +4,16 @@ let logoutButton = document.querySelector('.logout');
 let authorEditModal = document.getElementById('authorModal');
 let modalSpan = document.getElementsByClassName('modal-close__span')[0];
 let editAuthorBtn = document.getElementById('edit-authorInfo');
+let editBioBtn = document.querySelectorAll('.editBtn')
+let saveBioBtn = document.querySelectorAll('.saveBtn')
+
 
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('author-auth');
   if (!token) window.location.href = '../pages/main.html';
   displayProfilePhoto();
   getUsernameOnHeader();
+  displayAuthorInfo();
 });
 // Functions
 let logout = async () => {
@@ -72,10 +76,12 @@ let displayProfilePhoto = async () => {
     if (response.status != 200) throw await response.json();
     let author = await response.json();
     const avatariMG = document.getElementById('avatar-upload');
-    avatariMG.src = 'http://localhost:3000/' + author.avatarURL;
     const avatariMG2 = document.getElementById('header-avatar');
-    avatariMG2.src = 'http://localhost:3000/' + author.avatarURL;
-    console.log(avatariMG.src);
+    if (author.avatarURL === undefined) {
+      return avatariMG.src = "../assets/blank-profile.png", avatariMG2.src = "../assets/blank-profile.png";
+    } else {
+      return avatariMG.src = 'http://localhost:3000/' + author.avatarURL, avatariMG2.src = 'http://localhost:3000/' + author.avatarURL;;
+    }
   } catch (e) {
     console.log(e);
   }
@@ -121,6 +127,83 @@ document
     // return false;
   });
 
+// author's info in modale
+
+displayAuthorInfo = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/blog/author', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token,
+      },
+    })
+    if (response.status != 200) throw await response.json();
+    let author = await response.json();
+    console.log(author)
+    let authorName = document.querySelector("#name");
+    let authorSurname = document.querySelector('#surname');
+    let authorBio = document.querySelector('#bio');
+
+    authorName.value = author.name || "";
+    authorSurname.value = author.surname || "";
+    authorBio.value = author.bio || "";
+
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// update and save authors info 
+
+updateAndSaveInfo = async () => {
+  let name = document.querySelector("#name").value;
+  let surname = document.querySelector('#surname').value;
+  let bio = document.querySelector('#bio').value;
+
+  let data = {
+    name,
+    surname,
+    bio
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/blog/author/bio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token,
+      },
+      body: JSON.stringify(data)
+    })
+    if (response.status != 200) throw await response.json();
+    let author = await response.json();
+    author.name = name.value;
+    author.surname = surname.value;
+    author.bio = bio.value;
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// Edit author name and bio
+
+let editInfo = () => {
+  let saveNameBtn = document.querySelectorAll('.saveBtn');
+  let nameInput = document.querySelector('#name');
+  let surnameInput = document.querySelector('#surname');
+  let bioInput = document.querySelector('#bio');
+  saveNameBtn.forEach(btn => {
+    btn.style.display = 'inline'
+  })
+  nameInput.readOnly = false;
+  surnameInput.readOnly = false;
+  bioInput.readOnly = false;
+
+}
+
 // Events
 
 logoutButton.addEventListener('click', logout);
@@ -145,3 +228,12 @@ document.getElementById('avatar-upload').addEventListener(
   },
   false
 );
+
+
+editBioBtn.forEach(btn => btn.addEventListener('click', editInfo));
+saveBioBtn.forEach(btn => btn.addEventListener('click', () => {
+  updateAndSaveInfo();
+  saveBioBtn.forEach(btn => {
+    btn.style.display = "none"
+  })
+}))

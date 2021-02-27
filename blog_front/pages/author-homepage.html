@@ -19,7 +19,7 @@
     <nav class="navigation">
       <div>
         <div class="logo">NodeBlog</div>
-        <p class="welcomeMessage">Hello, <span id="helloUsername"></span></p>
+
       </div>
       <ul>
         <li>
@@ -37,6 +37,14 @@
         </li>
       </ul>
     </nav>
+    <div class="homepage-links">
+      <p class="welcomeMessage">Hello, <span id="helloUsername"></span></p>
+      <ul class="links-ul">
+        <li><a class="home-links-a" href="#"><i class="fas fa-book-open"></i>&nbsp; My stories </a></li>
+        <li><a class="home-links-a" href="#"><i class="fas fa-user-friends"></i>&nbsp; Following </a></li>
+        <li><a class="home-links-a" href="#"><i class="far fa-newspaper"></i>&nbsp; Explore </a></li>
+      </ul>
+    </div>
   </header>
 
   <main>
@@ -45,9 +53,12 @@
       <form class="publication-form" action="#">
         <label class="pub-label" for="title">Publication title:</label>
         <input type="text" name="title" id="title" required />
-        <textarea required class="publication" rows="2" cols="50" placeholder="Write your story here"></textarea>
-        <input name="pub-file" id="pub-file" type="file" />
-        <input type="submit" />
+        <textarea required class="publication" rows="2" cols="80" placeholder="Write your story here"></textarea>
+        <div class="file-wrapper">
+          <label class="pub-file" for="pub-file">Choose image</label>
+          <input name="pub-file" id="pub-file" type="file" />
+        </div>
+        <input type="submit" id="pub-submit" value="Publish!" />
       </form>
     </section>
     <div id="authorModal" class="modal">
