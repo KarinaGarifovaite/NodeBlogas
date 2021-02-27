@@ -17,7 +17,10 @@ let logout = async () => {
   try {
     const response = await fetch('http://localhost:3000/blog/author/logout', {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'author-auth': token },
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token
+      },
     });
     if (response.status != 200) throw await response.json();
 
@@ -49,7 +52,7 @@ let getUsernameOnHeader = async () => {
     if (response.status != 200) throw await response.json();
     let author = await response.json();
     const helloUsernamePlace = document.getElementById('helloUsername');
-    helloUsernamePlace.innerText = `${author.username}`;
+    helloUsernamePlace.innerText = `${author.username}!`;
     console.log(author);
   } catch (e) {
     console.log(e);
@@ -93,8 +96,7 @@ document
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto',
-        {
+        'http://localhost:3000/blog/author/uploadProfilePhoto', {
           method: 'POST',
           headers: {
             'author-auth': token,
