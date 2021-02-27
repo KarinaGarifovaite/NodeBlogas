@@ -7,10 +7,17 @@
   display: inline;
 }
 
+.welcomeMessage {
+  font-style: italic;
+  font-size: 1rem;
+}
+
+#helloUsername {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
 .img-conteiner {
-  background-image: url(../assets/blank-profile.png);
-  background-position: center center;
-  background-size: cover;
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -43,7 +50,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .pub-label {
@@ -80,7 +86,7 @@ textarea:focus {
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 160px;
+  padding-top: 120px;
   padding-bottom: 50px;
   left: 0;
   top: 0;
@@ -190,7 +196,20 @@ textarea:focus {
   margin-right: 35px;
 }
 
-#edit-save-buttons {
+.profile-img {
+  background-position: center center;
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#profile-img-input {
+  display: none;
+}
+
+.edit-save-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
