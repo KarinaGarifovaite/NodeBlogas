@@ -6,6 +6,7 @@ let modalSpan = document.getElementsByClassName('modal-close__span')[0];
 let editAuthorBtn = document.getElementById('edit-authorInfo');
 let editBioBtn = document.querySelectorAll('.editBtn')
 let saveBioBtn = document.querySelectorAll('.saveBtn')
+let publishBtn = document.querySelector('#pub-submit')
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -204,6 +205,50 @@ let editInfo = () => {
 
 }
 
+
+// Save publication to server NEPABAIGTA
+
+let savePublication = async (e) => {
+  e.preventDefault();
+  let title = document.querySelector("#title").value;
+  let content = document.querySelector('.publication').value;
+  let publicationDate = new Date().getFullYear;
+  let author = document.querySelector('#name').value;
+
+
+
+  let data = {
+    title,
+    content,
+    publicationDate,
+    author,
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/blog/publication', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token,
+      },
+      body: JSON.stringify(data)
+    })
+    if (response.status != 200) throw await response.json();
+    let publication = await response.json();
+    publication.title = title;
+    publication.content = content;
+    publication.publicationDate = publicationDate;
+    publication.status = false;
+    publication.author = author;
+    console.log(publication)
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
+
 // Events
 
 logoutButton.addEventListener('click', logout);
@@ -237,3 +282,5 @@ saveBioBtn.forEach(btn => btn.addEventListener('click', () => {
     btn.style.display = "none"
   })
 }))
+
+publishBtn.addEventListener('click', savePublication)
