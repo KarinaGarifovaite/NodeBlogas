@@ -4,10 +4,9 @@ let logoutButton = document.querySelector('.logout');
 let authorEditModal = document.getElementById('authorModal');
 let modalSpan = document.getElementsByClassName('modal-close__span')[0];
 let editAuthorBtn = document.getElementById('edit-authorInfo');
-let editBioBtn = document.querySelectorAll('.editBtn')
-let saveBioBtn = document.querySelectorAll('.saveBtn')
-let publishBtn = document.querySelector('#pub-submit')
-
+let editBioBtn = document.querySelectorAll('.editBtn');
+let saveBioBtn = document.querySelectorAll('.saveBtn');
+let publishBtn = document.querySelector('#pub-submit');
 
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('author-auth');
@@ -24,7 +23,7 @@ let logout = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'author-auth': token
+        'author-auth': token,
       },
     });
     if (response.status != 200) throw await response.json();
@@ -79,9 +78,15 @@ let displayProfilePhoto = async () => {
     const avatariMG = document.getElementById('avatar-upload');
     const avatariMG2 = document.getElementById('header-avatar');
     if (author.avatarURL === undefined) {
-      return avatariMG.src = "../assets/blank-profile.png", avatariMG2.src = "../assets/blank-profile.png";
+      return (
+        (avatariMG.src = '../assets/blank-profile.png'),
+        (avatariMG2.src = '../assets/blank-profile.png')
+      );
     } else {
-      return avatariMG.src = 'http://localhost:3000/' + author.avatarURL, avatariMG2.src = 'http://localhost:3000/' + author.avatarURL;;
+      return (
+        (avatariMG.src = 'http://localhost:3000/' + author.avatarURL),
+        (avatariMG2.src = 'http://localhost:3000/' + author.avatarURL)
+      );
     }
   } catch (e) {
     console.log(e);
@@ -103,7 +108,8 @@ document
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto', {
+        'http://localhost:3000/blog/author/uploadProfilePhoto',
+        {
           method: 'POST',
           headers: {
             'author-auth': token,
@@ -138,36 +144,34 @@ displayAuthorInfo = async () => {
         'Content-Type': 'application/json',
         'author-auth': token,
       },
-    })
+    });
     if (response.status != 200) throw await response.json();
     let author = await response.json();
-    console.log(author)
-    let authorName = document.querySelector("#name");
+    console.log(author);
+    let authorName = document.querySelector('#name');
     let authorSurname = document.querySelector('#surname');
     let authorBio = document.querySelector('#bio');
 
-    authorName.value = author.name || "";
-    authorSurname.value = author.surname || "";
-    authorBio.value = author.bio || "";
-
-
+    authorName.value = author.name || '';
+    authorSurname.value = author.surname || '';
+    authorBio.value = author.bio || '';
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 
-// update and save authors info 
+// update and save authors info
 
 updateAndSaveInfo = async () => {
-  let name = document.querySelector("#name").value;
+  let name = document.querySelector('#name').value;
   let surname = document.querySelector('#surname').value;
   let bio = document.querySelector('#bio').value;
 
   let data = {
     name,
     surname,
-    bio
-  }
+    bio,
+  };
 
   try {
     const response = await fetch('http://localhost:3000/blog/author/bio', {
@@ -176,18 +180,17 @@ updateAndSaveInfo = async () => {
         'Content-Type': 'application/json',
         'author-auth': token,
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
     if (response.status != 200) throw await response.json();
     let author = await response.json();
     author.name = name.value;
     author.surname = surname.value;
     author.bio = bio.value;
-
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 
 // Edit author name and bio
 
@@ -196,33 +199,54 @@ let editInfo = () => {
   let nameInput = document.querySelector('#name');
   let surnameInput = document.querySelector('#surname');
   let bioInput = document.querySelector('#bio');
-  saveNameBtn.forEach(btn => {
-    btn.style.display = 'inline'
-  })
+  saveNameBtn.forEach((btn) => {
+    btn.style.display = 'inline';
+  });
   nameInput.readOnly = false;
   surnameInput.readOnly = false;
   bioInput.readOnly = false;
-
-}
-
+};
 
 // Save publication to server NEPABAIGTA
 
 let savePublication = async (e) => {
   e.preventDefault();
-  let title = document.querySelector("#title").value;
+
+  if (document.getElementById('pub-file').isDefaultNamespace.length === 0)
+    return;
+  let file = document.getElementById('pub-file').files[0];
+  let formData = new FormData();
+  let publicationImgUrl;
+  formData.append('test', file);
+  try {
+    const response = await fetch(
+      'http://localhost:3000/blog/publication/uploadPublicationPhoto',
+      {
+        method: 'POST',
+        headers: {
+          'author-auth': token,
+        },
+        body: formData,
+      }
+    );
+    if (response.status != 200) throw await response.json();
+    console.log(response);
+    publicationImgUrl = await response.json();
+    console.log(publicationImgUrl);
+  } catch (err) {
+    console.log(err);
+  }
+
+  let title = document.querySelector('#title').value;
   let content = document.querySelector('.publication').value;
-  let publicationDate = new Date().getFullYear;
-  let author = document.querySelector('#name').value;
-
-
 
   let data = {
     title,
     content,
-    publicationDate,
-    author,
-  }
+    imageURL: publicationImgUrl,
+  };
+
+  console.log(data);
 
   try {
     const response = await fetch('http://localhost:3000/blog/publication', {
@@ -231,23 +255,15 @@ let savePublication = async (e) => {
         'Content-Type': 'application/json',
         'author-auth': token,
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
     if (response.status != 200) throw await response.json();
     let publication = await response.json();
-    publication.title = title;
-    publication.content = content;
-    publication.publicationDate = publicationDate;
-    publication.status = false;
-    publication.author = author;
-    console.log(publication)
-
+    console.log(publication);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
-
-
+};
 
 // Events
 
@@ -274,13 +290,14 @@ document.getElementById('avatar-upload').addEventListener(
   false
 );
 
-
-editBioBtn.forEach(btn => btn.addEventListener('click', editInfo));
-saveBioBtn.forEach(btn => btn.addEventListener('click', () => {
-  updateAndSaveInfo();
-  saveBioBtn.forEach(btn => {
-    btn.style.display = "none"
+editBioBtn.forEach((btn) => btn.addEventListener('click', editInfo));
+saveBioBtn.forEach((btn) =>
+  btn.addEventListener('click', () => {
+    updateAndSaveInfo();
+    saveBioBtn.forEach((btn) => {
+      btn.style.display = 'none';
+    });
   })
-}))
+);
 
-publishBtn.addEventListener('click', savePublication)
+publishBtn.addEventListener('click', savePublication);

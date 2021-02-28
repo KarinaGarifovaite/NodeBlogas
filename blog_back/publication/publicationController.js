@@ -1,5 +1,5 @@
 // const { request } = require('express');
-const Publication = require("./publicationModel");
+const Publication = require('./publicationModel');
 
 let savePublication = async (req, res) => {
   let body = req.body;
@@ -8,6 +8,7 @@ let savePublication = async (req, res) => {
     content: body.content,
     author: req.author._id,
     publicationDate: new Date(),
+    imageURL: body.imageURL,
   });
 
   try {
@@ -15,6 +16,15 @@ let savePublication = async (req, res) => {
     res.json(savedPublication);
   } catch (e) {
     res.status(401).json(e);
+  }
+};
+
+let savePublicationPhoto = async (req, res) => {
+  try {
+    let file = await req.file;
+    res.json(file.path);
+  } catch (e) {
+    res.status(400).json(e);
   }
 };
 
@@ -55,14 +65,17 @@ let deletePublication = async (req, res) => {
 let updatePublication = async (req, res) => {
   let publicationId = req.body._id;
   try {
-    let updatedPublication = await Publication.findOneAndUpdate({
-      _id: publicationId
-    }, req.body)
-    res.json(updatedPublication)
+    let updatedPublication = await Publication.findOneAndUpdate(
+      {
+        _id: publicationId,
+      },
+      req.body
+    );
+    res.json(updatedPublication);
   } catch (err) {
-    res.status(404).json(err)
+    res.status(404).json(err);
   }
-}
+};
 
 module.exports = {
   savePublication,
@@ -70,4 +83,5 @@ module.exports = {
   getAuthorPublications,
   deletePublication,
   updatePublication,
+  savePublicationPhoto,
 };

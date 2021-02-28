@@ -54,6 +54,13 @@ router.post(
   AuthorController.saveAuthorPhoto
 );
 
+router.post(
+  '/publication/uploadPublicationPhoto',
+  UserMiddleware,
+  upload.single('test'),
+  PublicationController.savePublicationPhoto
+);
+
 router.post('/author/bio', UserMiddleware, AuthorController.saveAuthorBio);
 
 router.get('/author', UserMiddleware, AuthorController.getAuthorInfo);
