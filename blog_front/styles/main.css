@@ -1,129 +1,172 @@
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sec-1 {
-    padding: 50px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .conteiner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 500px;
 }
 
 .conteiner h1 {
-    font-size: 4em;
-    line-height: 1;
-    font-weight: 100;
+  font-size: 4em;
+  line-height: 1;
+  font-weight: 100;
 }
 
 .conteiner p {
-    margin-top: 50px;
-    line-height: 1.5;
-    text-align: justify;
+  margin-top: 50px;
+  line-height: 1.5;
+  text-align: justify;
 }
 
 .conteiner a {
-    margin-top: 40px;
-    padding: 15px;
-    width: 135px;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: var(--light-color);
-    background: var(--accent-color);
-    font-weight: 500;
-    font-size: 0.8em;
-    border-radius: 2px;
+  margin-top: 40px;
+  padding: 15px;
+  width: 135px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--light-color);
+  background: var(--accent-color);
+  font-weight: 500;
+  font-size: 0.8em;
+  border-radius: 2px;
 }
 
 .conteiner a:hover {
-    border: 1px solid var(--accent-color);
-    background: transparent;
-    color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  background: transparent;
+  color: var(--accent-color);
 }
 
-
 .tablet-img {
-    width: 350px;
-    height: 500px;
+  width: 350px;
+  height: 500px;
 }
 
 .desktop-img {
-    width: 500px;
-    height: 300px;
-    display: none;
+  width: 500px;
+  height: 300px;
+  display: none;
 }
 
 .img-wrapper {
-    display: none;
+  display: none;
 }
 
 hr {
-    margin: 30px 0;
-    width: 400px;
-    border: 1px solid var(--accent-color);
+  margin: 30px 0;
+  width: 400px;
+  border: 1px solid var(--accent-color);
 }
 
 .sec-2 {
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  /* height: 50vh; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
+.publicationsContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.one-of-publication {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.publication {
+  display: flex;
+}
+
+.publication-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.author {
+  display: flex;
+}
+
+#publication-img {
+  height: 100px;
+  width: 100px;
+}
+
+#avatar-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
 
 @media screen and (min-width: 768px) {
-    .sec-1 {
-        padding: 10px;
-    }
+  .sec-1 {
+    padding: 10px;
+  }
 
-    .conteiner {
-        align-self: flex-start;
-        width: 50%;
-        margin: 20px;
-    }
+  .conteiner {
+    align-self: flex-start;
+    width: 50%;
+    margin: 20px;
+  }
 
-    .conteiner h1 {
-        font-size: 3.5em;
-    }
+  .conteiner h1 {
+    font-size: 3.5em;
+  }
 
-    .conteiner p {
-        width: 80%;
-    }
+  .conteiner p {
+    width: 80%;
+  }
 
-    .img-wrapper {
-        margin: 20px;
-        display: inline;
-    }
+  .img-wrapper {
+    margin: 20px;
+    display: inline;
+  }
 
+  .one-of-publication {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 1024px) {
+  .conteiner h1 {
+    font-size: 4em;
+  }
 
-    .conteiner h1 {
-        font-size: 4em;
-    }
+  .tablet-img {
+    display: none;
+  }
 
-    .tablet-img {
-        display: none;
-    }
+  .desktop-img {
+    display: inline;
+  }
 
-    .desktop-img {
-        display: inline;
-    }
+  .one-of-publication {
+    width: 25%;
+  }
 }
 
 @media screen and (min-width: 1140px) {
-    .desktop-img {
-        width: 700px;
-        height: 500px;
-    }
+  .desktop-img {
+    width: 700px;
+    height: 500px;
+  }
 }
