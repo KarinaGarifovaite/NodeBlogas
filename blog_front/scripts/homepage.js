@@ -110,7 +110,8 @@ document
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto', {
+        'http://localhost:3000/blog/author/uploadProfilePhoto',
+        {
           method: 'POST',
           headers: {
             'author-auth': token,
@@ -221,7 +222,8 @@ let savePublication = async (e) => {
   formData.append('test', file);
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publication/uploadPublicationPhoto', {
+      'http://localhost:3000/blog/publication/uploadPublicationPhoto',
+      {
         method: 'POST',
         headers: {
           'author-auth': token,
@@ -267,11 +269,12 @@ let savePublication = async (e) => {
   }
 };
 
-// Post all publications in author home page
+// Post all author publications in author home page
 let getAllAuthorPublications = async () => {
   try {
     let response = await fetch(
-      'http://localhost:3000/blog/authorPublications', {
+      'http://localhost:3000/blog/authorPublications',
+      {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -293,21 +296,29 @@ let displayAllAuthorPublications = (items) => {
   items.forEach((item, index) => {
     publicationsItems += `
       <div class="publicationsContainer">
-      <i class="far fa-trash-alt" onclick="removeItem('${item._id}', ${index})"></i>
-      <textarea name="text" readonly wrap="soft" maxlength="40" style="resize: none;" >${item.title}</textarea>
+      <div class="publicationsContainer__btns">
+      <button class="btnPreview" onclick="previewPost(${index})">Preview</button>
+      <button class="btnEdit" onclick="editPost(${index})">Edit</button>
+      <i class="far fa-trash-alt fa-lg" onclick="removeItem('${item._id}', ${index})" style="color: var(--accent-color);"></i>
+      </div>
+      <div class="publicationsContainer__info">
+      <textarea class="textareaTitle" name="text" readonly wrap="soft" maxlength="40" style="resize: none; overflow:hidden" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
+      </div>
+      <textarea class="content${index} textareaContent" style="display:none"> </textarea>
     </div>
       `;
     publications.innerHTML = publicationsItems;
   });
 };
-
+// remove one publication
 let removeItem = async (id, index) => {
   try {
     authorPublications.splice(index, 1);
     displayAllAuthorPublications(authorPublications);
     const response = await fetch(
-      'http://localhost:3000/blog/publication/' + id, {
+      'http://localhost:3000/blog/publication/' + id,
+      {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -320,6 +331,20 @@ let removeItem = async (id, index) => {
     console.log(e);
   }
 };
+// preview post in author home page
+let previewPost =  (index) => {
+  let content = document.querySelector(`.content${index}`);
+  content.readOnly = true
+  content.style.display = "block"
+  content.innerText = authorPublications[index].content
+};
+// edit post in author home page
+let editPost = index => {
+  let content = document.querySelector(`.content${index}`);
+  content.style.display = "block"
+  content.innerText = authorPublications[index].content
+  content.readOnly = false;
+}
 
 // Events
 
@@ -357,3 +382,5 @@ saveBioBtn.forEach((btn) =>
 );
 
 publishBtn.addEventListener('click', savePublication);
+
+

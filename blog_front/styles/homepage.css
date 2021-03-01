@@ -117,12 +117,7 @@
   border: none;
 }
 
-.my-publications {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
+
 .publicationsContainer {
   display: flex;
   flex-direction: column;
@@ -130,27 +125,45 @@
   padding: 15px;
   box-shadow: 0 0 15px 2px rgb(202, 197, 197);
 }
-.publicationsContainer > textarea {
+.publicationsContainer__info {
+  display: flex;
+}
+.textareaTitle {
   border: none;
   border-bottom: 1px solid rgb(226, 226, 226);
   font-size: 25px;
   font-weight: 600;
   font-style: italic;
-  margin-top: -25px;
   margin-bottom: 10px;
-  width: 90%;
-  padding-bottom: 5px;
+  width: 80%;
   cursor: pointer;
 }
+.textareaContent {
+  margin: 20px;
+  border: none;
+  resize: none;
+  height: 250px;
+}
 
-.publicationsContainer > i {
-  align-self: flex-end;
-  margin-top: 10px;
+.publicationsContainer__btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+.publicationsContainer__btns > button {
+  margin-right: 10px;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  background-color: white;
+  padding: 5px;
+
 }
 
 #publication-img {
-  width: 300px;
-  height: 200px;
+  width: 200px;
+  height: 150px;
+  margin-left: 15px;
 }
 
 .pub-file {
