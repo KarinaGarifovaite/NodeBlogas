@@ -77,6 +77,43 @@ let updatePublication = async (req, res) => {
   }
 };
 
+let saveClaps = async (req, res) => {
+  let publicationId = req.params.id;
+  try {
+    let clapedPublication = await Publication.findOneAndUpdate(
+      {
+        _id: publicationId,
+      },
+      { $inc: { claps: 1 } },
+      {
+        new: true,
+      }
+    );
+    res.json(clapedPublication);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
+let getPublicationInfoById = async (req, res) => {
+  let publicationId = req.params.id;
+  try {
+    let publication = await Publication.findOne({
+      _id: publicationId,
+    });
+    res.json({
+      title: publication.title,
+      content: publication.content,
+      claps: publication.claps,
+      imageURL: publication.imageURL,
+      publicationDate: publication.publicationDate,
+      author: publication.author,
+    });
+  } catch (e) {
+    res.status(400).json(e);
+  }
+};
+
 module.exports = {
   savePublication,
   getAllPublications,
@@ -84,4 +121,6 @@ module.exports = {
   deletePublication,
   updatePublication,
   savePublicationPhoto,
+  saveClaps,
+  getPublicationInfoById,
 };
