@@ -7,7 +7,7 @@ let editAuthorBtn = document.getElementById('edit-authorInfo');
 let editBioBtn = document.querySelectorAll('.editBtn');
 let saveBioBtn = document.querySelectorAll('.saveBtn');
 let publishBtn = document.querySelector('#pub-submit');
-let authorPublications = []
+let authorPublications = [];
 
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('author-auth');
@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
   displayProfilePhoto();
   getUsernameOnHeader();
   displayAuthorInfo();
-  getAllAuthorPublications()
+  getAllAuthorPublications();
 });
 // Functions
 let logout = async () => {
@@ -110,7 +110,8 @@ document
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto', {
+        'http://localhost:3000/blog/author/uploadProfilePhoto',
+        {
           method: 'POST',
           headers: {
             'author-auth': token,
@@ -221,7 +222,8 @@ let savePublication = async (e) => {
   formData.append('test', file);
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publication/uploadPublicationPhoto', {
+      'http://localhost:3000/blog/publication/uploadPublicationPhoto',
+      {
         method: 'POST',
         headers: {
           'author-auth': token,
@@ -261,7 +263,7 @@ let savePublication = async (e) => {
     let publication = await response.json();
     console.log(publication);
     authorPublications.push(publication);
-    displayAllAuthorPublications(authorPublications)
+    displayAllAuthorPublications(authorPublications);
   } catch (err) {
     console.log(err);
   }
@@ -270,58 +272,58 @@ let savePublication = async (e) => {
 // Post all publications in author home page
 let getAllAuthorPublications = async () => {
   try {
-    let response = await fetch('http://localhost:3000/blog/publication', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'author-auth': token
+    let response = await fetch(
+      'http://localhost:3000/blog/authorPublications',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'author-auth': token,
+        },
       }
-    })
-    let items = await response.json()
+    );
+    let items = await response.json();
     console.log(items);
     authorPublications = items;
     displayAllAuthorPublications(items);
   } catch (e) {
     console.log(e);
   }
-}
+};
 let displayAllAuthorPublications = (items) => {
-  let publications = document.querySelector('.my-publications')
-  let publicationsItems = ''
+  let publications = document.querySelector('.my-publications');
+  let publicationsItems = '';
   items.forEach((item, index) => {
     publicationsItems += `
       <div class="publicationsContainer">
-      <div>
-      <input class="authorTitle" readonly value="${item.title}">
-      <textarea class="authorContent">${item.content}</textarea>
-      </div>
-      <div>
-      <span onclick="removeItem('${item._id}', ${index})">X</span>
+      <i class="far fa-trash-alt" onclick="removeItem('${item._id}', ${index})"></i>
+      <textarea name="text" readonly wrap="soft" maxlength="40" style="resize: none;" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
-      </div>
     </div>
-      `
-    publications.innerHTML = publicationsItems
-  })
-}
+      `;
+    publications.innerHTML = publicationsItems;
+  });
+};
 
 let removeItem = async (id, index) => {
   try {
     authorPublications.splice(index, 1);
     displayAllAuthorPublications(authorPublications);
-    const response = await fetch('http://localhost:3000/blog/publication/' + id, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": 'application/json',
-        'author-auth': token
-      },
-
-    })
+    const response = await fetch(
+      'http://localhost:3000/blog/publication/' + id,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'author-auth': token,
+        },
+      }
+    );
     location.reload();
   } catch (e) {
     console.log(e);
   }
-}
+};
 
 // Events
 
