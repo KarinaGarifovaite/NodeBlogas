@@ -65,6 +65,8 @@ router.post('/author/bio', UserMiddleware, AuthorController.saveAuthorBio);
 
 router.get('/author', UserMiddleware, AuthorController.getAuthorInfo);
 
+router.get('/allAuthors', AuthorController.getAllAuthors);
+
 router.patch('/author', UserMiddleware, AuthorController.updateAuthorInfo);
 
 //all Publication routes
