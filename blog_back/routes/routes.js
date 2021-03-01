@@ -97,6 +97,6 @@ router.post(
   PublicationController.saveClaps
 );
 
-router.get('/publicationInfo', PublicationController.getPublicationInfoById);
+router.get('/publicationInfo/:id', PublicationController.getPublicationInfoById);
 
 module.exports = router;
