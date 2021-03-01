@@ -81,7 +81,11 @@ router.get(
   PublicationController.getAuthorPublications
 );
 
-router.delete('/publication/:id', UserMiddleware, PublicationController.deletePublication);
+router.delete(
+  '/publication/:id',
+  UserMiddleware,
+  PublicationController.deletePublication
+);
 router.patch('/publication', PublicationController.updatePublication);
 
 module.exports = router;

@@ -99,6 +99,15 @@ let saveAuthorBio = async (req, res) => {
   }
 };
 
+let getAllAuthors = async (req, res) => {
+  try {
+    let allAuthors = await Author.find({});
+    res.json(allAuthors);
+  } catch (e) {
+    res.status(401).json(e);
+  }
+};
+
 let getAuthorInfo = async (req, res) => {
   let token = req.header('author-auth');
   try {
@@ -137,6 +146,7 @@ module.exports = {
   login,
   logout,
   saveAuthorPhoto,
+  getAllAuthors,
   getAuthorInfo,
   saveAuthorBio,
   updateAuthorInfo,
