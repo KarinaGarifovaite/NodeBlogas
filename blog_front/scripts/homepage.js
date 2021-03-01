@@ -269,25 +269,27 @@ let savePublication = async (e) => {
 
 // Post all publications in author home page
 let getAllAuthorPublications = async () => {
-  try{
-     let response = await fetch('http://localhost:3000/blog/publication', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json',
-        'author-auth': token}
-      })
-      let items = await response.json()
-      console.log(items);
-      authorPublications = items;
-      displayAllAuthorPublications(items);
-  }catch(e) {
+  try {
+    let response = await fetch('http://localhost:3000/blog/publication', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token
+      }
+    })
+    let items = await response.json()
+    console.log(items);
+    authorPublications = items;
+    displayAllAuthorPublications(items);
+  } catch (e) {
     console.log(e);
   }
 }
 let displayAllAuthorPublications = (items) => {
-    let publications = document.querySelector('.my-publications')
-    let publicationsItems = ''
-    items.forEach((item, index) => {
-      publicationsItems += `
+  let publications = document.querySelector('.my-publications')
+  let publicationsItems = ''
+  items.forEach((item, index) => {
+    publicationsItems += `
       <div class="publicationsContainer">
       <div>
       <input class="authorTitle" readonly value="${item.title}">
@@ -299,25 +301,24 @@ let displayAllAuthorPublications = (items) => {
       </div>
     </div>
       `
-      publications.innerHTML = publicationsItems
-    })
+    publications.innerHTML = publicationsItems
+  })
 }
 
 let removeItem = async (id, index) => {
   try {
     authorPublications.splice(index, 1);
     displayAllAuthorPublications(authorPublications);
-    const response = await fetch('http://localhost:3000/blog/publication', {
+    const response = await fetch('http://localhost:3000/blog/publication/' + id, {
       method: 'DELETE',
-            headers: {
-                "Content-Type": 'application/json',
-                'author-auth': token
-            },
-            body: {
-              "_id": id
-            }
+      headers: {
+        "Content-Type": 'application/json',
+        'author-auth': token
+      },
+
     })
-  }catch(e) {
+    location.reload();
+  } catch (e) {
     console.log(e);
   }
 }

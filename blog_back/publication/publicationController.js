@@ -51,7 +51,7 @@ let getAuthorPublications = async (req, res) => {
 };
 
 let deletePublication = async (req, res) => {
-  let publicationId = req.body._id;
+  let publicationId = req.params.id;
   try {
     let deletedItem = await Publication.findOneAndDelete({
       _id: publicationId,
@@ -60,13 +60,13 @@ let deletePublication = async (req, res) => {
   } catch (err) {
     res.status(404).json(err);
   }
+
 };
 
 let updatePublication = async (req, res) => {
   let publicationId = req.body._id;
   try {
-    let updatedPublication = await Publication.findOneAndUpdate(
-      {
+    let updatedPublication = await Publication.findOneAndUpdate({
         _id: publicationId,
       },
       req.body
