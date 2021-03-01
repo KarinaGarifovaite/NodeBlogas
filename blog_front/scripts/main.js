@@ -32,7 +32,7 @@ let displayAllPublications = (items) => {
             <img src="http://localhost:3000/${item.author.avatarURL}" id="avatar-img" alt="">
           </div>
           <div>
-            <p>${item.author.name} ${item.author.name}</p>
+            <p>${item.author.name} ${item.author.surname}</p>
           </div>
         </div>
 

@@ -37,6 +37,7 @@ const AuthorController = require('../author/authorController');
 const PublicationController = require('../publication/publicationController');
 const UserMiddleware = require('../author/authentity');
 const Author = require('../author/authorModel');
+const Publication = require('../publication/publicationModel');
 
 router.get('/', (req, res) => {
   res.send('Hello World!');
@@ -89,5 +90,13 @@ router.delete(
   PublicationController.deletePublication
 );
 router.patch('/publication', PublicationController.updatePublication);
+
+router.post(
+  '/publication/:id',
+  UserMiddleware,
+  PublicationController.saveClaps
+);
+
+router.get('/publicationInfo', PublicationController.getPublicationInfoById);
 
 module.exports = router;
