@@ -110,8 +110,7 @@ document
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto',
-        {
+        'http://localhost:3000/blog/author/uploadProfilePhoto', {
           method: 'POST',
           headers: {
             'author-auth': token,
@@ -222,8 +221,7 @@ let savePublication = async (e) => {
   formData.append('test', file);
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publication/uploadPublicationPhoto',
-      {
+      'http://localhost:3000/blog/publication/uploadPublicationPhoto', {
         method: 'POST',
         headers: {
           'author-auth': token,
@@ -272,13 +270,15 @@ let savePublication = async (e) => {
 // Post all publications in author home page
 let getAllAuthorPublications = async () => {
   try {
-    let response = await fetch('http://localhost:3000/blog/publication', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'author-auth': token,
-      },
-    });
+    let response = await fetch(
+      'http://localhost:3000/blog/authorPublications', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'author-auth': token,
+        },
+      }
+    );
     let items = await response.json();
     console.log(items);
     authorPublications = items;
@@ -293,14 +293,9 @@ let displayAllAuthorPublications = (items) => {
   items.forEach((item, index) => {
     publicationsItems += `
       <div class="publicationsContainer">
-      <div>
-      <input class="authorTitle" readonly value="${item.title}">
-      <textarea class="authorContent">${item.content}</textarea>
-      </div>
-      <div>
-      <span onclick="removeItem('${item._id}', ${index})">X</span>
+      <i class="far fa-trash-alt" onclick="removeItem('${item._id}', ${index})"></i>
+      <textarea name="text" readonly wrap="soft" maxlength="40" style="resize: none;" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
-      </div>
     </div>
       `;
     publications.innerHTML = publicationsItems;
@@ -312,8 +307,7 @@ let removeItem = async (id, index) => {
     authorPublications.splice(index, 1);
     displayAllAuthorPublications(authorPublications);
     const response = await fetch(
-      'http://localhost:3000/blog/publication/' + id,
-      {
+      'http://localhost:3000/blog/publication/' + id, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
