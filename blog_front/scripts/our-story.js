@@ -15,6 +15,18 @@ getAllAuthors = async () => {
         })
         if (response.status != 200) throw await response.json();
         let authors = await response.json();
+        let output = ''
+        authors.forEach(author => {
+            output += `
+            <div class="author-item">
+            <div class="author-img-cont">
+            <img class="author-img" src="http://localhost:3000/${author.avatarURL}" id="avatar-img" alt="">
+          </div>
+            <div class="author-username"><p>@${author.username}</p></div>
+          </div>
+            `
+        })
+        authorsConteiner.innerHTML = output;
         console.log(authors)
     } catch (err) {
         console.log(err)
@@ -23,4 +35,6 @@ getAllAuthors = async () => {
 
 // Events
 
-window.addEventListener('DOMContentLoaded', getAllAuthors)
+window.addEventListener('DOMContentLoaded', () => {
+    getAllAuthors();
+})
