@@ -30,9 +30,9 @@ let savePublicationPhoto = async (req, res) => {
 
 let getAllPublications = async (req, res) => {
   try {
-    let allPublications = await Publication.find({});
+    let allPublications = await Publication.find({}).populate('Author');
     res.json(allPublications);
-    // console.log(allPublications);
+    console.log(allPublications);
   } catch (e) {
     res.status(401).json(e);
   }
