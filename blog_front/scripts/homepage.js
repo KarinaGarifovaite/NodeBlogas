@@ -108,8 +108,7 @@ document
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto',
-        {
+        'http://localhost:3000/blog/author/uploadProfilePhoto', {
           method: 'POST',
           headers: {
             'author-auth': token,
@@ -207,7 +206,7 @@ let editInfo = () => {
   bioInput.readOnly = false;
 };
 
-// Save publication to server NEPABAIGTA
+// Save publication to server
 
 let savePublication = async (e) => {
   e.preventDefault();
@@ -220,8 +219,7 @@ let savePublication = async (e) => {
   formData.append('test', file);
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publication/uploadPublicationPhoto',
-      {
+      'http://localhost:3000/blog/publication/uploadPublicationPhoto', {
         method: 'POST',
         headers: {
           'author-auth': token,
