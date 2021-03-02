@@ -91,7 +91,7 @@ let saveClaps = async (req, res) => {
         new: true,
       }
     );
-    res.json(clapedPublication);
+    res.json(clapedPublication.claps);
   } catch (err) {
     res.status(404).json(err);
   }
