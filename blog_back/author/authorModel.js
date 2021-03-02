@@ -34,6 +34,7 @@ let AuthorSchema = new mongoose.Schema({
   },
   avatarURL: {
     type: String,
+    default: `http://localhost:3000/uploads/1614704067020-blank-profile.png`
   },
   sessionToken: [{
     token: String,

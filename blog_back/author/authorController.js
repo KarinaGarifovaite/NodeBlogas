@@ -134,10 +134,10 @@ let updateAuthorInfo = async (req, res) => {
 };
 
 let deleteAuthor = async (req, res) => {
-  let authorId = req.params.id;
+  let token = req.header('author-auth');
   try {
     let deletedAuthor = await Author.findOneAndDelete({
-      _id: authorId,
+      'sessionToken.token': token,
     });
     res.json(deletedAuthor);
   } catch (err) {

@@ -16,7 +16,16 @@ getAllAuthors = async () => {
         if (response.status != 200) throw await response.json();
         let authors = await response.json();
         let output = ''
+
+
         authors.forEach(author => {
+            // let imgUrl;
+            // if (author.avatarURL) {
+            //     imgUrl = `http://localhost:3000/${author.avatarURL}`
+            // } else {
+            //     imgUrl = 'http://localhost:3000/uploads/1614704067020-blank-profile.png';
+            // }
+            // console.log(imgUrl)
             output += `
             <div class="author-item">
             <div class="author-img-cont">

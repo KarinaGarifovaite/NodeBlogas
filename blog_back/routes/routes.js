@@ -70,7 +70,7 @@ router.get('/allAuthors', AuthorController.getAllAuthors);
 
 router.patch('/author', UserMiddleware, AuthorController.updateAuthorInfo);
 
-router.delete('/author/:id', UserMiddleware, AuthorController.deleteAuthor)
+router.delete('/author', UserMiddleware, AuthorController.deleteAuthor)
 
 //all Publication routes
 

@@ -348,9 +348,9 @@ let editPost = index => {
 
 // Delete my account
 
-let deleteAccount = async (id, index) => {
+let deleteAccount = async () => {
   try {
-    const response = await fetch('http://localhost:3000/blog/author/' + id, {
+    const response = await fetch('http://localhost:3000/blog/author', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
