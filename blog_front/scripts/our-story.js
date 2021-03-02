@@ -27,7 +27,7 @@ getAllAuthors = async () => {
             `
         })
         authorsConteiner.innerHTML = output;
-        console.log(authors)
+
     } catch (err) {
         console.log(err)
     }

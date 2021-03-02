@@ -40,9 +40,11 @@
     <div class="homepage-links">
       <p class="welcomeMessage">Hello, <span id="helloUsername"></span></p>
       <ul class="links-ul">
-        <li><a class="home-links-a" href="#"><i class="fas fa-book-open"></i>&nbsp; My stories </a></li>
-        <li><a class="home-links-a" href="#"><i class="fas fa-user-friends"></i>&nbsp; Following </a></li>
+        <li><a class="home-links-a" href="#my-story"><i class="fas fa-book-open"></i>&nbsp; My stories </a></li>
+        <!-- <li><a class="home-links-a" href="#"><i class="fas fa-user-friends"></i>&nbsp; Following </a></li> -->
         <li><a class="home-links-a" href="#"><i class="far fa-newspaper"></i>&nbsp; Explore </a></li>
+        <li><a id="delete-account" class="home-links-a" href="#"><i class="fas fa-user-slash"></i>&nbsp; Delete account
+          </a></li>
       </ul>
     </div>
   </header>
@@ -82,8 +84,8 @@
               </div>
             </div>
             <div class="edit-save-buttons">
-              <button class="editBtn">Edit</button>
-              <button class="saveBtn">Save</button>
+              <button class="editBtn editBtn1">Edit</button>
+              <button class="saveBtn saveBtn1">Save</button>
             </div>
           </div>
           <div class="bio">
@@ -92,8 +94,8 @@
               <textarea id="bio" rows="4" cols="40" readonly></textarea>
             </div>
             <div class="edit-save-buttons">
-              <button class="editBtn">Edit</button>
-              <button class="saveBtn">Save</button>
+              <button class="editBtn editBtn2">Edit</button>
+              <button class="saveBtn saveBtn2">Save</button>
             </div>
           </div>
           <div class="photo">
@@ -105,12 +107,12 @@
               <img class="profile-img" id="avatar-upload" src="../assets/blank-profile.png" alt="avatarImg" />
             </div>
             <input id="profile-img-input" type="file" />
-            <!-- <button id="upload-button">upload</button> -->
+            <p class="error-message"></p>
           </div>
         </div>
       </div>
     </div>
-    <section class="my-publications">
+    <section id="my-story" class="my-publications">
     </section>
   </main>
   <footer>

@@ -78,6 +78,13 @@ hr {
   align-items: center;
 }
 
+.whats-new {
+  margin: 10px 0 50px 0;
+  color: var(--accent-color);
+  font-weight: 200;
+  font-size: 2em;
+}
+
 .publicationContainer {
   display: flex;
   flex-direction: column;

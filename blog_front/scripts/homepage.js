@@ -7,6 +7,7 @@ let editAuthorBtn = document.getElementById('edit-authorInfo');
 let editBioBtn = document.querySelectorAll('.editBtn');
 let saveBioBtn = document.querySelectorAll('.saveBtn');
 let publishBtn = document.querySelector('#pub-submit');
+let deleteAccountBtn = document.querySelector('#delete-account')
 let authorPublications = [];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -98,8 +99,7 @@ let displayProfilePhoto = async () => {
 document
   .getElementById('profile-img-input')
   .addEventListener('change', async (e) => {
-    // e.preventDefault();
-    // e.stopPropagation();
+
     if (
       document.getElementById('profile-img-input').isDefaultNamespace.length ===
       0
@@ -107,11 +107,11 @@ document
       return;
     let file = document.getElementById('profile-img-input').files[0];
     let formData = new FormData();
+    let errorMessage = document.querySelector('.error-message')
     formData.append('test', file);
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/author/uploadProfilePhoto',
-        {
+        'http://localhost:3000/blog/author/uploadProfilePhoto', {
           method: 'POST',
           headers: {
             'author-auth': token,
@@ -119,21 +119,14 @@ document
           body: formData,
         }
       );
-      // return false;
-      // let author = response.json();
       displayProfilePhoto();
-      console.log(response);
-      // let uploadedAvatarPlace = document.getElementById('uploadedAvatarPlace');
-      // let child = uploadedAvatarPlace.firstElementChild;
-      // uploadedAvatarPlace.removeChild(child);
-
-      // const avatariMG = document.getElementById('avatar-upload');
-      // uploadedAvatarPlace.innerHTML = `<img class="profile-img" id="avatar-upload" src="http://localhost:3000/${author}"></img>`;
-      // avatariMG.src = 'http://localhost:3000/' + author.avatarURL;
+      if (response.status != 200) {
+        errorMessage.innerText = `Something went wrong. Please make sure your file is one of the following types:  .jpeg, .jpg, .png or .gif`
+      }
     } catch (e) {
       console.log(e);
     }
-    // return false;
+
   });
 
 // author's info in modale
@@ -176,8 +169,8 @@ updateAndSaveInfo = async () => {
   };
 
   try {
-    const response = await fetch('http://localhost:3000/blog/author/bio', {
-      method: 'POST',
+    const response = await fetch('http://localhost:3000/blog/author', {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'author-auth': token,
@@ -186,9 +179,7 @@ updateAndSaveInfo = async () => {
     });
     if (response.status != 200) throw await response.json();
     let author = await response.json();
-    author.name = name.value;
-    author.surname = surname.value;
-    author.bio = bio.value;
+
   } catch (err) {
     console.log(err);
   }
@@ -196,17 +187,29 @@ updateAndSaveInfo = async () => {
 
 // Edit author name and bio
 
-let editInfo = () => {
-  let saveNameBtn = document.querySelectorAll('.saveBtn');
+let editInfo = (e) => {
   let nameInput = document.querySelector('#name');
   let surnameInput = document.querySelector('#surname');
   let bioInput = document.querySelector('#bio');
-  saveNameBtn.forEach((btn) => {
-    btn.style.display = 'inline';
-  });
-  nameInput.readOnly = false;
-  surnameInput.readOnly = false;
-  bioInput.readOnly = false;
+  let saveBioBtn1 = document.querySelector('.saveBtn1');
+  let saveBioBtn2 = document.querySelector('.saveBtn2');
+
+  if (e.target.classList.contains('editBtn1')) {
+    saveBioBtn1.style.display = 'inline';
+    nameInput.readOnly = false;
+    surnameInput.readOnly = false;
+  } else if (e.target.classList.contains('editBtn2')) {
+    saveBioBtn2.style.display = ('inline')
+    bioInput.readOnly = false;
+  }
+
+  saveBioBtn1.addEventListener('click', () => {
+    nameInput.readOnly = true;
+    surnameInput.readOnly = true;
+  })
+  saveBioBtn2.addEventListener('click', () => {
+    bioInput.readOnly = true;
+  })
 };
 
 // Save publication to server
@@ -222,8 +225,7 @@ let savePublication = async (e) => {
   formData.append('test', file);
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publication/uploadPublicationPhoto',
-      {
+      'http://localhost:3000/blog/publication/uploadPublicationPhoto', {
         method: 'POST',
         headers: {
           'author-auth': token,
@@ -273,8 +275,7 @@ let savePublication = async (e) => {
 let getAllAuthorPublications = async () => {
   try {
     let response = await fetch(
-      'http://localhost:3000/blog/authorPublications',
-      {
+      'http://localhost:3000/blog/authorPublications', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -317,8 +318,7 @@ let removeItem = async (id, index) => {
     authorPublications.splice(index, 1);
     displayAllAuthorPublications(authorPublications);
     const response = await fetch(
-      'http://localhost:3000/blog/publication/' + id,
-      {
+      'http://localhost:3000/blog/publication/' + id, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -332,7 +332,7 @@ let removeItem = async (id, index) => {
   }
 };
 // preview post in author home page
-let previewPost =  (index) => {
+let previewPost = (index) => {
   let content = document.querySelector(`.content${index}`);
   content.readOnly = true
   content.style.display = "block"
@@ -344,6 +344,25 @@ let editPost = index => {
   content.style.display = "block"
   content.innerText = authorPublications[index].content
   content.readOnly = false;
+}
+
+// Delete my account
+
+let deleteAccount = async (id, index) => {
+  try {
+    const response = await fetch('http://localhost:3000/blog/author/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token,
+      },
+    })
+    if (response.status != 200) throw await response.json();
+    window.location.href = '../pages/main.html'
+  } catch (err) {
+    console.log(err)
+  }
+
 }
 
 // Events
@@ -371,16 +390,20 @@ document.getElementById('avatar-upload').addEventListener(
   false
 );
 
-editBioBtn.forEach((btn) => btn.addEventListener('click', editInfo));
+editBioBtn.forEach(btn => {
+  btn.addEventListener('click', editInfo)
+});
+
 saveBioBtn.forEach((btn) =>
   btn.addEventListener('click', () => {
     updateAndSaveInfo();
     saveBioBtn.forEach((btn) => {
       btn.style.display = 'none';
     });
+
   })
 );
 
 publishBtn.addEventListener('click', savePublication);
 
-
+deleteAccountBtn.addEventListener('click', deleteAccount)

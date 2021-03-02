@@ -102,6 +102,7 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .author-img {
   margin: 5px;
   width: 50px;
@@ -114,11 +115,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 10px;
+  margin: 0 10px;
   width: 40%;
   border-top: 2px solid var(--accent-color);
-  border-bottom: 2px solid var(--accent-color);
 }
+
 .author-item p {
   font-size: 15px;
   font-weight: 500;
@@ -178,9 +179,11 @@
   .section3 p {
     width: 70%;
   }
+
   .authors-cont {
     justify-content: flex-start;
   }
+
   .author-item {
     padding: 10px 30px 10px 0;
     width: 30%;
@@ -205,8 +208,12 @@
     font-size: 1em;
   }
 
+  .authors-cont {
+    justify-content: center;
+  }
+
   .author-item {
-    margin: 20px;
+    margin: 0 20px;
     padding: 10px 50px 10px 0;
     width: 20%;
   }

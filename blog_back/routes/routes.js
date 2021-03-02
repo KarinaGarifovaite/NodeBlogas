@@ -12,26 +12,26 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   // limits: {
-  //   fileSize: 2000000,
+  //   fileSize: 1000000,
   // },
-  // fileFilter: function (req, file, cb) {
-  //   checkFileType(file, cb);
-  // },
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
 });
 
-// function checkFileType(file, cb) {
-//   // Allowed extentions
-//   const fileTypes = /jpeg|jpg|png|gif/;
-//   //check the ext
-//   const extname = fileTypes.test(file.originalname.toLowerCase());
-//   //check mime
-//   const mimetype = fileTypes.test(file.mimetype);
-//   if (mimetype && extname) {
-//     return cb(null, true);
-//   } else {
-//     cb('Error: Images only');
-//   }
-// }
+function checkFileType(file, cb) {
+  // Allowed extentions
+  const fileTypes = /jpeg|jpg|png|gif/;
+  //check the ext
+  const extname = fileTypes.test(file.originalname.toLowerCase());
+  //check mime
+  const mimetype = fileTypes.test(file.mimetype);
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('Error: Images only');
+  }
+}
 
 const AuthorController = require('../author/authorController');
 const PublicationController = require('../publication/publicationController');
@@ -69,6 +69,8 @@ router.get('/author', UserMiddleware, AuthorController.getAuthorInfo);
 router.get('/allAuthors', AuthorController.getAllAuthors);
 
 router.patch('/author', UserMiddleware, AuthorController.updateAuthorInfo);
+
+router.delete('/author/:id', UserMiddleware, AuthorController.deleteAuthor)
 
 //all Publication routes
 

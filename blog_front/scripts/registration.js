@@ -56,11 +56,15 @@ let registration = async (e) => {
                 message.innerText = "All fields are required"
             }
         })
-        // Validacija jeigu username toks jau egzistuoja
+        // Validacija jeigu username arba email jau egzistuoja
         if (e.keyValue) {
             if (e.keyValue.username === username) {
                 let input = document.getElementById('username')
                 message.innerText = 'Username already exists'
+                input.classList.add("border-red")
+            } else if (e.keyValue.email === email) {
+                let input = document.getElementById('email')
+                message.innerText = 'Email already exists'
                 input.classList.add("border-red")
             }
         }

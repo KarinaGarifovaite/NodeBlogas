@@ -45,6 +45,8 @@ form input:focus {
 }
 
 .message {
+  font-size: 12px;
+  margin-top: 10px;
   color: red;
 }
 
