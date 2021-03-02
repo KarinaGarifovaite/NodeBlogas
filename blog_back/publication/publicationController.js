@@ -100,15 +100,8 @@ let getPublicationInfoById = async (req, res) => {
   try {
     let publication = await Publication.findOne({
       _id: publicationId,
-    });
-    res.json({
-      title: publication.title,
-      content: publication.content,
-      claps: publication.claps,
-      imageURL: publication.imageURL,
-      publicationDate: publication.publicationDate,
-      author: publication.author,
-    });
+    }).populate('author');
+    res.json(publication);
   } catch (e) {
     res.status(400).json(e);
   }
