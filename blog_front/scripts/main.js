@@ -53,6 +53,7 @@ let displayAllPublications = (items) => {
     <div class="one-of-publication">
 
         <div class="author">
+        <span>Writer:</span>
           <div>
             <img ${avatarURL} id="avatar-img" alt="">
           </div>
@@ -63,18 +64,18 @@ let displayAllPublications = (items) => {
 
         <a href="../pages/publication.html?publicationID=${item._id}">
           <div class="publication">
-            <div>
+            <div class="date-container">
               <p>${dateStr}</p>
             </div>
-            <div>
+            <div class="pub-img-cont">
               <img ${imageURL} id="publication-img" alt="">
             </div>
             <div class="publication-content">
-              <input class="authorTitle" value="${item.title}" readonly>
-              <textarea class="authorContent" readonly>${item.content}</textarea>
+              <p class="authorTitle"> ${item.title} </p>
             </div>
           </div>
         </a>
+        
       </div>
     </div>
       `;

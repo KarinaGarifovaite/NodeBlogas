@@ -70,14 +70,6 @@ hr {
   border: 1px solid var(--accent-color);
 }
 
-.sec-2 {
-  /* height: 50vh; */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
 .whats-new {
   margin: 10px 0 50px 0;
   color: var(--accent-color);
@@ -85,10 +77,21 @@ hr {
   font-size: 2em;
 }
 
-.publicationContainer {
+.sec-2 {
+  margin: 20px 0 50px 0;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.publicationContainer {
+  margin: 20px 0;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .one-of-publication {
@@ -96,37 +99,95 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 
 .publication {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+.date-container {
+  padding: 10px 30px;
+  width: 100%;
+  color: var(--accent-color);
+}
+
+.pub-img-cont {
+  margin: 5px;
+  width: 100%;
 }
 
 .publication-content {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .author {
+  width: 100%;
+  padding: 0 20px;
+  cursor: pointer;
   display: flex;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  align-items: center;
+  color: var(--text-color);
+  font-weight: 100;
+
+}
+
+.author p {
+  padding: 5px;
+}
+
+.author span {
+  margin: 10px 5px;
+  width: 100%;
+  padding-right: 15px;
+  font-size: 12px;
+
+}
+
+.one-of-publication a {
+  text-decoration: none;
 }
 
 #publication-img {
-  height: 100px;
-  width: 100px;
+  margin: 0 20px;
+  height: 250px;
+  width: 350px;
 }
 
 #avatar-img {
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
+}
+
+.authorTitle {
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-color);
+
+}
+
+.authorContent {
+  display: none;
+
 }
 
 @media screen and (min-width: 768px) {
   .sec-1 {
     padding: 10px;
+
   }
 
   .conteiner {
@@ -148,9 +209,19 @@ hr {
     display: inline;
   }
 
-  .one-of-publication {
+
+  .publicationContainer {
+    padding-left: 30px;
+    align-items: flex-start;
     width: 50%;
   }
+
+  .one-of-publication {
+    width: 100%;
+  }
+
+
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -166,9 +237,17 @@ hr {
     display: inline;
   }
 
-  .one-of-publication {
-    width: 25%;
+  .publicationContainer {
+    padding-left: 0;
+    width: 30%;
+    margin: 10px;
   }
+
+  .one-of-publication {
+    width: 100%;
+  }
+
+
 }
 
 @media screen and (min-width: 1140px) {
