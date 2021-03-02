@@ -78,7 +78,7 @@ hr {
   align-items: center;
 }
 
-.publicationsContainer {
+.publicationContainer {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

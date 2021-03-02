@@ -25,8 +25,9 @@ let displayAllPublications = (items) => {
   let publicationsItems = '';
   items.forEach((item, index) => {
     publicationsItems += `
-    <div class="publicationsContainer">
+    <div class="publicationContainer">
     <div class="one-of-publication">
+
         <div class="author">
           <div>
             <img src="http://localhost:3000/${item.author.avatarURL}" id="avatar-img" alt="">
@@ -36,15 +37,17 @@ let displayAllPublications = (items) => {
           </div>
         </div>
 
-        <div class="publication">
-        <div>
-          <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
-        </div>
-        <div class="publication-content">
-          <input class="authorTitle" readonly value="${item.title}">
-          <textarea class="authorContent">${item.content}</textarea>
-        </div>
-        </div>
+        <a href="../pages/publication.html?publicationID=${item._id}">
+          <div class="publication">
+            <div>
+              <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
+            </div>
+            <div class="publication-content">
+              <input class="authorTitle" value="${item.title}" readonly>
+              <textarea class="authorContent" readonly>${item.content}</textarea>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
       `;
