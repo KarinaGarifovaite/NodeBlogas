@@ -23,14 +23,38 @@ let getAllPublications = async () => {
 let displayAllPublications = (items) => {
   let publications = document.querySelector('.sec-2');
   let publicationsItems = '';
+  let date;
+  let month;
+  let year;
+  let dateStr;
+
   items.forEach((item, index) => {
+    dateStr = '';
+    if (item.publicationDate) {
+      let publicationDate = new Date(item.publicationDate);
+      year = publicationDate.getFullYear();
+      date = publicationDate.getDate();
+      month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
+
+      dateStr = date + '/' + month + '/' + year;
+    }
+    let avatarURL = '';
+    if (item.author.avatarURL) {
+      avatarURL = `src = "http://localhost:3000/${item.author.avatarURL}"`;
+    }
+
+    let imageURL = '';
+    if (item.imageURL) {
+      imageURL = `src = 'http://localhost:3000/${item.imageURL}'`;
+    }
+
     publicationsItems += `
     <div class="publicationContainer">
     <div class="one-of-publication">
 
         <div class="author">
           <div>
-            <img src="http://localhost:3000/${item.author.avatarURL}" id="avatar-img" alt="">
+            <img ${avatarURL} id="avatar-img" alt="">
           </div>
           <div>
             <p>${item.author.name} ${item.author.surname}</p>
@@ -40,7 +64,10 @@ let displayAllPublications = (items) => {
         <a href="../pages/publication.html?publicationID=${item._id}">
           <div class="publication">
             <div>
-              <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
+              <p>${dateStr}</p>
+            </div>
+            <div>
+              <img ${imageURL} id="publication-img" alt="">
             </div>
             <div class="publication-content">
               <input class="authorTitle" value="${item.title}" readonly>
