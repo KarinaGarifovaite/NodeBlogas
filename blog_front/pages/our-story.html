@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="../styles/resets.css">
     <link rel="stylesheet" href="../styles/header.css">
     <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/homepage.css">
     <link rel="stylesheet" href="../styles/our-story.css">
     <script defer src="../scripts/our-story.js"></script>
+    <script defer src="../scripts/header.js"></script>
 </head>
 
 <body>
@@ -17,11 +19,17 @@
         <nav class="navigation">
             <div class="logo">NodeBlog</div>
             <ul>
-                <li><a class="nav-a" href="./main.html">Home</a></li>
-                <li><a class="nav-a" href="#">Write</a></li>
-                <li><a class="nav-a" id="log-in" href="./login.html">Log In</a></li>
-                <li>
+                <li class="logout-avatar-home"><a class="nav-a" href="./main.html">Home</a></li>
+                <li><a class="nav-a" href="./main.html">Explore</a></li>
+                <li><a class="nav-a" href="./trending.html">Trending</a></li>
+                <li class="loginAndGetStarted"><a class="nav-a" id="log-in" href="./login.html">Log In</a></li>
+                <li class="loginAndGetStarted">
                     <a class="nav-a" id="get-started" href="../pages/resigtration.html">Get Started</a>
+                </li>
+                <li class="logout-avatar-home"><a class="nav-a logout">Log Out</a></li>
+                <li class="logout-avatar-home">
+                    <img id="header-avatar-home" src="../assets/blank-profile.png" class="img-conteiner"
+                        alt="avatarImg" />
                 </li>
             </ul>
         </nav>
