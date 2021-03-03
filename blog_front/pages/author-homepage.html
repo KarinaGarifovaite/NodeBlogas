@@ -12,27 +12,23 @@
   <script defer src="https://kit.fontawesome.com/e856a66464.js" crossorigin="anonymous"></script>
   <script defer src="../scripts/currentDate.js"></script>
   <script defer src="../scripts/homepage.js"></script>
+  <script defer src="../scripts/header.js"></script>
 </head>
 
 <body>
   <header>
     <nav class="navigation">
-      <div>
-        <div class="logo">NodeBlog</div>
-
-      </div>
+      <div class="logo">NodeBlog</div>
       <ul>
-        <li>
-          <a class="nav-a" href="#"><i class="fas fa-search"></i></a>
+        <li class="logout-avatar-home"><a class="nav-a" href="./main.html">Home</a></li>
+        <li><a class="nav-a" href="./our-story.html">Our Story</a></li>
+        <li><a class="nav-a" href="#">Write</a></li>
+        <li class="loginAndGetStarted"><a class="nav-a" id="log-in" href="./login.html">Log In</a></li>
+        <li class="loginAndGetStarted">
+          <a class="nav-a" id="get-started" href="../pages/resigtration.html">Get Started</a>
         </li>
-        <li>
-          <a class="nav-a" href="#"><i class="far fa-bookmark"></i></a>
-        </li>
-        <li>
-          <a class="nav-a" id="edit-authorInfo" href="#"><i class="fas fa-user-edit"></i></a>
-        </li>
-        <li><a class="nav-a logout">Log Out</a></li>
-        <li>
+        <li class="logoutAndAvatar"><a class="nav-a logout">Log Out</a></li>
+        <li class="logoutAndAvatar">
           <img id="header-avatar" src="../assets/blank-profile.png" class="img-conteiner" alt="avatarImg" />
         </li>
       </ul>
@@ -42,7 +38,10 @@
       <ul class="links-ul">
         <li><a class="home-links-a" href="#my-story"><i class="fas fa-book-open"></i>&nbsp; My stories </a></li>
         <!-- <li><a class="home-links-a" href="#"><i class="fas fa-user-friends"></i>&nbsp; Following </a></li> -->
-        <li><a class="home-links-a" href="#"><i class="far fa-newspaper"></i>&nbsp; Explore </a></li>
+        <!-- <li><a class="home-links-a" href="#"><i class="far fa-newspaper"></i>&nbsp; Explore </a></li> -->
+        <li>
+          <a class="nav-a" id="edit-authorInfo" href="#"><i class="fas fa-user-edit"></i></a>
+        </li>
         <li><a id="delete-account" class="home-links-a" href="#"><i class="fas fa-user-slash"></i>&nbsp; Delete account
           </a></li>
       </ul>

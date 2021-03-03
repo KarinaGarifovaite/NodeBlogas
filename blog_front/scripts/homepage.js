@@ -1,6 +1,6 @@
 // Global variables
 let token;
-let logoutButton = document.querySelector('.logout');
+// let logoutButton = document.querySelector('.logout');
 let authorEditModal = document.getElementById('authorModal');
 let modalSpan = document.getElementsByClassName('modal-close__span')[0];
 let editAuthorBtn = document.getElementById('edit-authorInfo');
@@ -13,29 +13,29 @@ let authorPublications = [];
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('author-auth');
   if (!token) window.location.href = '../pages/main.html';
-  displayProfilePhoto();
+  // displayProfilePhoto();
   getUsernameOnHeader();
   displayAuthorInfo();
   getAllAuthorPublications();
 });
 // Functions
-let logout = async () => {
-  localStorage.removeItem('author-auth');
-  try {
-    const response = await fetch('http://localhost:3000/blog/author/logout', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'author-auth': token,
-      },
-    });
-    if (response.status != 200) throw await response.json();
+// let logout = async () => {
+//   localStorage.removeItem('author-auth');
+//   try {
+//     const response = await fetch('http://localhost:3000/blog/author/logout', {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'author-auth': token,
+//       },
+//     });
+//     if (response.status != 200) throw await response.json();
 
-    window.location.href = '../pages/main.html';
-  } catch (e) {
-    alert(e);
-  }
-};
+//     window.location.href = '../pages/main.html';
+//   } catch (e) {
+//     alert(e);
+//   }
+// };
 
 let editAuthor = () => {
   authorEditModal.style.display = 'block';
@@ -66,35 +66,35 @@ let getUsernameOnHeader = async () => {
   }
 };
 
-let displayProfilePhoto = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/blog/author', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'author-auth': token,
-      },
-    });
+// let displayProfilePhoto = async () => {
+//   try {
+//     const response = await fetch('http://localhost:3000/blog/author', {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'author-auth': token,
+//       },
+//     });
 
-    if (response.status != 200) throw await response.json();
-    let author = await response.json();
-    const avatariMG = document.getElementById('avatar-upload');
-    const avatariMG2 = document.getElementById('header-avatar');
-    if (author.avatarURL === undefined) {
-      return (
-        (avatariMG.src = '../assets/blank-profile.png'),
-        (avatariMG2.src = '../assets/blank-profile.png')
-      );
-    } else {
-      return (
-        (avatariMG.src = 'http://localhost:3000/' + author.avatarURL),
-        (avatariMG2.src = 'http://localhost:3000/' + author.avatarURL)
-      );
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
+//     if (response.status != 200) throw await response.json();
+//     let author = await response.json();
+//     const avatariMG = document.getElementById('avatar-upload');
+//     const avatariMG2 = document.getElementById('header-avatar');
+//     if (author.avatarURL === undefined) {
+//       return (
+//         (avatariMG.src = '../assets/blank-profile.png'),
+//         (avatariMG2.src = '../assets/blank-profile.png')
+//       );
+//     } else {
+//       return (
+//         (avatariMG.src = 'http://localhost:3000/' + author.avatarURL),
+//         (avatariMG2.src = 'http://localhost:3000/' + author.avatarURL)
+//       );
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 document
   .getElementById('profile-img-input')
@@ -304,7 +304,7 @@ let displayAllAuthorPublications = (items) => {
       <i class="far fa-trash-alt fa-lg" onclick="removeItem('${item._id}', ${index})" style="color: var(--accent-color);"></i>
       </div>
       <div class="publicationsContainer__info">
-      <textarea class="textareaTitle" name="text"  wrap="soft" maxlength="40" readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
+      <textarea class="textareaTitle" name="text"  wrap="soft" maxlength="100" readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
       </div>
       <textarea class="content${index} textareaContent" style="display:none"> </textarea>
@@ -403,7 +403,7 @@ let deleteAccount = async () => {
 
 // Events
 
-logoutButton.addEventListener('click', logout);
+// logoutButton.addEventListener('click', logout);
 
 editAuthorBtn.addEventListener('click', editAuthor);
 
@@ -443,4 +443,3 @@ saveBioBtn.forEach((btn) =>
 publishBtn.addEventListener('click', savePublication);
 
 deleteAccountBtn.addEventListener('click', deleteAccount)
-document.querySelector('.explore').addEventListener('click', exploreToMainPage)
