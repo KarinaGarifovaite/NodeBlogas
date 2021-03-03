@@ -132,6 +132,7 @@ html {
 
 .publicationsContainer__info {
   display: flex;
+  align-items: center;
 }
 
 .textareaTitle {
@@ -403,6 +404,7 @@ textarea:focus {
   color: var(--accent-color);
   font-weight: 700;
 }
+
 
 @media screen and (min-width: 768px) {
   .navigation ul {
