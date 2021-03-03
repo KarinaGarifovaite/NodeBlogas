@@ -279,7 +279,7 @@ let getAllAuthorPublications = async () => {
         headers: {
           'Content-Type': 'application/json',
           'author-auth': token,
-        },
+        }
       }
     );
     let items = await response.json();
@@ -299,10 +299,11 @@ let displayAllAuthorPublications = (items) => {
       <div class="publicationsContainer__btns">
       <button class="btnPreview" onclick="previewPost(${index})">Preview</button>
       <button class="btnEdit" onclick="editPost(${index})">Edit</button>
+      <button class="btnSave${index}" style="display:none" onclick="updateAndSavePost('${item._id}')">Save</button>
       <i class="far fa-trash-alt fa-lg" onclick="removeItem('${item._id}', ${index})" style="color: var(--accent-color);"></i>
       </div>
       <div class="publicationsContainer__info">
-      <textarea class="textareaTitle" name="text" readonly wrap="soft" maxlength="40" style="resize: none; overflow:hidden" >${item.title}</textarea>
+      <textarea class="textareaTitle" name="text"  wrap="soft" maxlength="40" readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
       </div>
       <textarea class="content${index} textareaContent" style="display:none"> </textarea>
@@ -334,18 +335,50 @@ let removeItem = async (id, index) => {
 // preview post in author home page
 let previewPost =  (index) => {
   let content = document.querySelector(`.content${index}`);
+  let title = document.querySelector(`.textareaTitle`);
   content.readOnly = true
+  title.readOnly = true
   content.style.display = "block"
   content.innerText = authorPublications[index].content
 };
 // edit post in author home page
 let editPost = index => {
   let content = document.querySelector(`.content${index}`);
+  let title = document.querySelector(`.textareaTitle`)
+  let btnSave = document.querySelector(`.btnSave${index}`)
+  btnSave.style.display = "block"
   content.style.display = "block"
   content.innerText = authorPublications[index].content
   content.readOnly = false;
+  title.readOnly = false;
 }
-
+let updateAndSavePost = async(id) => {
+  let title = document.querySelector('.textareaTitle')
+  let content = document.querySelector(`.textareaContent`)
+  let data = {
+    title: title.value,
+    content: content.value,
+    _id: id
+  }
+  try{
+    let response = await fetch('http://localhost:3000/blog/publication', {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json',
+      'author-auth': token},
+      body: JSON.stringify(data)
+    })
+    title.readOnly = true
+    content.readOnly = true
+  }catch(e) {
+    console.log(e);
+  }
+}
+// explore permetimas i main page be headerio 
+let exploreToMainPage = () => {
+  window.location = '../pages/main.html'
+  let header = document.querySelector('.homepage-links')
+  
+}
 // Events
 
 logoutButton.addEventListener('click', logout);
@@ -382,5 +415,7 @@ saveBioBtn.forEach((btn) =>
 );
 
 publishBtn.addEventListener('click', savePublication);
+
+document.querySelector('.explore').addEventListener('click', exploreToMainPage)
 
 
