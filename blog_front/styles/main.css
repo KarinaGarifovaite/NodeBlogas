@@ -128,6 +128,7 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .author {
@@ -177,12 +178,10 @@ hr {
   font-weight: bold;
   color: var(--text-color);
 
-}
-
-.authorContent {
-  display: none;
 
 }
+
+
 
 @media screen and (min-width: 768px) {
   .sec-1 {
@@ -220,7 +219,10 @@ hr {
     width: 100%;
   }
 
+  .publication {
+    width: 90%;
 
+  }
 
 }
 
@@ -241,13 +243,17 @@ hr {
     padding-left: 0;
     width: 30%;
     margin: 10px;
+    justify-content: center;
   }
 
   .one-of-publication {
     width: 100%;
   }
 
+  .publication {
+    width: 100%;
 
+  }
 }
 
 @media screen and (min-width: 1140px) {

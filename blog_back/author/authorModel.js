@@ -35,11 +35,10 @@ let AuthorSchema = new mongoose.Schema({
   avatarURL: {
     type: String,
   },
-  sessionToken: [
-    {
-      token: String,
-    },
-  ],
+
+  sessionToken: [{
+    token: String,
+  }, ],
 });
 
 AuthorSchema.pre('save', function (next) {

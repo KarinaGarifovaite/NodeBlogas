@@ -18,8 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 let getPublication = async (id) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publicationInfo/' + id,
-      {
+      'http://localhost:3000/blog/publicationInfo/' + id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -39,6 +38,22 @@ let getPublication = async (id) => {
 let displayPublication = (publication) => {
   let publicationPlace = document.querySelector('.publicationContainer');
   let publicationItem = '';
+  let date;
+  let month;
+  let year;
+  let dateStr;
+  let seconds;
+  let minutes;
+  let hour;
+  let publicationDate = new Date(publication.publicationDate);
+  year = publicationDate.getFullYear();
+  date = publicationDate.getDate();
+  month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
+  hour = publicationDate.getHours();
+  minutes = publicationDate.getMinutes();
+  seconds = publicationDate.getSeconds();
+
+  dateStr = date + '/' + month + '/' + year + ' ' + hour + ':' + minutes + ':' + seconds;
 
   let avatarImgUrl = '';
   if (!publication.author.avatarURL) {
@@ -68,7 +83,7 @@ let displayPublication = (publication) => {
         </div>
         <div class="author-info">
           <h4>${publication.author.name} ${publication.author.surname}</h4>
-          <p>${publication.publicationDate}</p>
+          <p>${dateStr}</p>
         </div>
       </div>
     </div>
@@ -86,8 +101,9 @@ let displayPublication = (publication) => {
     </div>
   <hr />
     <div class="container-feedback">
+    <p class="feedback-error"></p>
       <div class="feedback__claps claps-btn">
-        <i class="fas fa-heart"></i>
+      <img class="clap" src="../assets/clap.png">
         <p class="claps-amount">${publication.claps}</p>
       </div>
       <div class="feedback__comments">
@@ -99,12 +115,13 @@ let displayPublication = (publication) => {
   publicationPlace.innerHTML = publicationItem;
   let claps = document.querySelector('.claps-btn');
   let clapsAmount = document.querySelector('.claps-amount');
+  let feedbackError = document.querySelector('.feedback-error')
+  let clapIcon = document.querySelector('.clap')
   if (claps != null) {
     claps.addEventListener('click', async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/blog/publication/' + publicationId,
-          {
+          'http://localhost:3000/blog/publication/' + publicationId, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -113,10 +130,13 @@ let displayPublication = (publication) => {
           }
         );
 
-        if (response.status != 200) throw await response.json();
+        if (response.status != 200) {
+          return feedbackError.innerText = `You need to log in.`
+        };
         let publicationClaps = await response.json();
         console.log(publicationClaps);
         clapsAmount.innerText = publicationClaps;
+        clapIcon.src = '../assets/claped.png'
       } catch (err) {
         console.log(err);
       }

@@ -31,7 +31,9 @@ let savePublicationPhoto = async (req, res) => {
 let getAllPublications = async (req, res) => {
   try {
     let allPublications = await Publication.find({})
-      .sort({ publicationDate: 1 })
+      .sort({
+        publicationDate: -1
+      })
       .populate('author');
     res.json(allPublications);
     console.log(allPublications);
@@ -67,8 +69,7 @@ let deletePublication = async (req, res) => {
 let updatePublication = async (req, res) => {
   let publicationId = req.body._id;
   try {
-    let updatedPublication = await Publication.findOneAndUpdate(
-      {
+    let updatedPublication = await Publication.findOneAndUpdate({
         _id: publicationId,
       },
       req.body
@@ -82,15 +83,15 @@ let updatePublication = async (req, res) => {
 let saveClaps = async (req, res) => {
   let publicationId = req.params.id;
   try {
-    let clapedPublication = await Publication.findOneAndUpdate(
-      {
-        _id: publicationId,
-      },
-      { $inc: { claps: 1 } },
-      {
-        new: true,
+    let clapedPublication = await Publication.findOneAndUpdate({
+      _id: publicationId,
+    }, {
+      $inc: {
+        claps: 1
       }
-    );
+    }, {
+      new: true,
+    });
     res.json(clapedPublication.claps);
   } catch (err) {
     res.status(404).json(err);
