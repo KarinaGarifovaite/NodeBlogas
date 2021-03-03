@@ -31,9 +31,6 @@ let savePublicationPhoto = async (req, res) => {
 let getAllPublications = async (req, res) => {
   try {
     let allPublications = await Publication.find({})
-      .sort({
-        publicationDate: -1
-      })
       .populate('author');
     res.json(allPublications);
     console.log(allPublications);
