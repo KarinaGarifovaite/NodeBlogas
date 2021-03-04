@@ -15,15 +15,15 @@ let createComment = async (req, res) => {
     let savedComment = await comment.save();
     let commentID = comment._id;
 
-    let publication = await Publication.findOneAndUpdate(
-      {
+    let publication = await Publication.findOneAndUpdate({
         _id: publicationId,
-      },
-      { $push: { comments: commentID } },
-      {
+      }, {
+        $push: {
+          comments: commentID
+        }
+      }, {
         new: true,
-      }
-    )
+      })
       .populate('author')
       .populate({
         path: 'comments',
@@ -33,11 +33,8 @@ let createComment = async (req, res) => {
           model: 'Author',
         },
       });
-    console.log(commentID);
 
-    // publication.comments.push(commentID);
 
-    // await publication.save();
     res.json(publication);
     res.json(savedComment);
   } catch (e) {

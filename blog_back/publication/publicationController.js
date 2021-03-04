@@ -1,4 +1,3 @@
-// const { request } = require('express');
 const Publication = require('./publicationModel');
 
 let savePublication = async (req, res) => {
@@ -41,7 +40,6 @@ let getAllPublications = async (req, res) => {
         },
       });
     res.json(allPublications);
-    console.log(allPublications);
   } catch (e) {
     res.status(401).json(e);
   }
@@ -53,7 +51,6 @@ let getAuthorPublications = async (req, res) => {
       author: req.author._id,
     });
     res.json(authorPublications);
-    console.log(authorPublications);
   } catch (e) {
     res.status(401).json(e);
   }
@@ -74,8 +71,7 @@ let deletePublication = async (req, res) => {
 let updatePublication = async (req, res) => {
   let publicationId = req.body._id;
   try {
-    let updatedPublication = await Publication.findOneAndUpdate(
-      {
+    let updatedPublication = await Publication.findOneAndUpdate({
         _id: publicationId,
       },
       req.body
@@ -89,19 +85,15 @@ let updatePublication = async (req, res) => {
 let saveClaps = async (req, res) => {
   let publicationId = req.params.id;
   try {
-    let clapedPublication = await Publication.findOneAndUpdate(
-      {
-        _id: publicationId,
+    let clapedPublication = await Publication.findOneAndUpdate({
+      _id: publicationId,
+    }, {
+      $inc: {
+        claps: 1,
       },
-      {
-        $inc: {
-          claps: 1,
-        },
-      },
-      {
-        new: true,
-      }
-    );
+    }, {
+      new: true,
+    });
     res.json(clapedPublication.claps);
   } catch (err) {
     res.status(404).json(err);
@@ -112,8 +104,8 @@ let getPublicationInfoById = async (req, res) => {
   let publicationId = req.params.id;
   try {
     let publication = await Publication.findOne({
-      _id: publicationId,
-    })
+        _id: publicationId,
+      })
       .populate('author')
       .populate({
         path: 'comments',

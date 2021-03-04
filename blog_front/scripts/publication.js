@@ -140,7 +140,6 @@ let displayClaps = () => {
           return (feedbackError.innerText = `You need to log in.`);
         }
         let publicationClaps = await response.json();
-        console.log(publicationClaps);
         clapsAmount.innerText = publicationClaps;
         clapIcon.src = '../assets/claped.png';
       } catch (err) {
@@ -201,8 +200,6 @@ let postComment = async (id) => {
       comment: commentInputValue,
     };
 
-    console.log(data);
-
     try {
       const response = await fetch(
         'http://localhost:3000/blog/publication/comment/' + id, {
@@ -216,7 +213,6 @@ let postComment = async (id) => {
       );
       if (response.status != 200) throw await response.json();
       let publication = await response.json();
-      console.log(publication);
       displayComments(publication);
     } catch (err) {
       console.log(err);

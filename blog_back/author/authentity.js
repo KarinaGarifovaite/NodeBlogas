@@ -4,7 +4,7 @@ const Author = require('./authorModel');
 let authenticate = async (req, res, next) => {
   let token = req.header('author-auth');
   try {
-    let decoded = await jwt.verify(token, 'superDuperSecret'); //decoded _id
+    let decoded = await jwt.verify(token, 'superDuperSecret');
     let author = await Author.findOne({
       _id: decoded._id,
       'sessionToken.token': token,
@@ -20,4 +20,3 @@ let authenticate = async (req, res, next) => {
 };
 
 module.exports = authenticate;
-

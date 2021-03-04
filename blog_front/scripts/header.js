@@ -1,5 +1,8 @@
 let logoutButton = document.querySelector('.logout');
 
+
+// Pagal tokena skirtingi headeriai; 
+
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('author-auth')
   displayProfilePhoto();

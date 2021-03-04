@@ -1,6 +1,5 @@
 // Global variables
 let token;
-// let logoutButton = document.querySelector('.logout');
 let authorEditModal = document.getElementById('authorModal');
 let modalSpan = document.getElementsByClassName('modal-close__span')[0];
 let editAuthorBtn = document.getElementById('edit-authorInfo');
@@ -13,29 +12,12 @@ let authorPublications = [];
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('author-auth');
   if (!token) window.location.href = '../pages/main.html';
-  // displayProfilePhoto();
   getUsernameOnHeader();
   displayAuthorInfo();
   getAllAuthorPublications();
 });
-// Functions
-// let logout = async () => {
-//   localStorage.removeItem('author-auth');
-//   try {
-//     const response = await fetch('http://localhost:3000/blog/author/logout', {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'author-auth': token,
-//       },
-//     });
-//     if (response.status != 200) throw await response.json();
 
-//     window.location.href = '../pages/main.html';
-//   } catch (e) {
-//     alert(e);
-//   }
-// };
+// Functions
 
 let editAuthor = () => {
   authorEditModal.style.display = 'block';
@@ -60,41 +42,11 @@ let getUsernameOnHeader = async () => {
     let author = await response.json();
     const helloUsernamePlace = document.getElementById('helloUsername');
     helloUsernamePlace.innerText = `${author.username}!`;
-    console.log(author);
   } catch (e) {
     console.log(e);
   }
 };
 
-// let displayProfilePhoto = async () => {
-//   try {
-//     const response = await fetch('http://localhost:3000/blog/author', {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'author-auth': token,
-//       },
-//     });
-
-//     if (response.status != 200) throw await response.json();
-//     let author = await response.json();
-//     const avatariMG = document.getElementById('avatar-upload');
-//     const avatariMG2 = document.getElementById('header-avatar');
-//     if (author.avatarURL === undefined) {
-//       return (
-//         (avatariMG.src = '../assets/blank-profile.png'),
-//         (avatariMG2.src = '../assets/blank-profile.png')
-//       );
-//     } else {
-//       return (
-//         (avatariMG.src = 'http://localhost:3000/' + author.avatarURL),
-//         (avatariMG2.src = 'http://localhost:3000/' + author.avatarURL)
-//       );
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
 
 document
   .getElementById('profile-img-input')
@@ -140,7 +92,6 @@ displayAuthorInfo = async () => {
     });
     if (response.status != 200) throw await response.json();
     let author = await response.json();
-    console.log(author);
     let authorName = document.querySelector('#name');
     let authorSurname = document.querySelector('#surname');
     let authorBio = document.querySelector('#bio');
@@ -231,9 +182,7 @@ let savePublication = async (e) => {
       }
     );
     if (response.status != 200) throw await response.json();
-    console.log(response);
     publicationImgUrl = await response.json();
-    console.log(publicationImgUrl);
   } catch (err) {
     console.log(err);
   }
@@ -247,7 +196,7 @@ let savePublication = async (e) => {
     imageURL: publicationImgUrl,
   };
 
-  console.log(data);
+
 
   try {
     const response = await fetch('http://localhost:3000/blog/publication', {
@@ -260,7 +209,6 @@ let savePublication = async (e) => {
     });
     if (response.status != 200) throw await response.json();
     let publication = await response.json();
-    console.log(publication);
     authorPublications.push(publication);
     displayAllAuthorPublications(authorPublications);
   } catch (err) {
@@ -281,7 +229,6 @@ let getAllAuthorPublications = async () => {
       }
     );
     let items = await response.json();
-    console.log(items);
     authorPublications = items;
     displayAllAuthorPublications(items);
   } catch (e) {
@@ -340,8 +287,6 @@ let previewPost = (index) => {
   } else {
     content.style.display = "none"
   }
-  // content.style.cursor =  "not-allowed";
-  // title.style.cursor =  "not-allowed";
   content.innerText = authorPublications[index].content
 };
 // edit post in author home page
@@ -382,10 +327,10 @@ let updateAndSavePost = async (id, index) => {
   }
 }
 // explore permetimas i main page be headerio
-let exploreToMainPage = () => {
-  window.location = '../pages/main.html';
-  let header = document.querySelector('.homepage-links');
-};
+// let exploreToMainPage = () => {
+//   window.location = '../pages/main.html';
+//   let header = document.querySelector('.homepage-links');
+// };
 
 // Delete my account
 
@@ -399,6 +344,7 @@ let deleteAccount = async () => {
       },
     });
     if (response.status != 200) throw await response.json();
+    localStorage.removeItem('author-auth');
     window.location.href = '../pages/main.html';
   } catch (err) {
     console.log(err);
@@ -407,7 +353,6 @@ let deleteAccount = async () => {
 
 // Events
 
-// logoutButton.addEventListener('click', logout);
 
 editAuthorBtn.addEventListener('click', editAuthor);
 
