@@ -18,7 +18,8 @@ window.addEventListener('DOMContentLoaded', () => {
 let getPublication = async (id) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publicationInfo/' + id, {
+      'http://localhost:3000/blog/publicationInfo/' + id,
+      {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -126,6 +127,16 @@ let displayPublication = (publication) => {
     </div>
         `;
   publicationPlace.innerHTML = publicationItem;
+  // document.querySelector(".feedback__comments").addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   let comments
+
+  // })
+  displayClaps();
+  displayComments(publication);
+};
+
+let displayClaps = () => {
   let claps = document.querySelector('.claps-btn');
   let clapsAmount = document.querySelector('.claps-amount');
   let feedbackError = document.querySelector('.feedback-error');
@@ -134,7 +145,8 @@ let displayPublication = (publication) => {
     claps.addEventListener('click', async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/blog/publication/' + publicationId, {
+          'http://localhost:3000/blog/publication/' + publicationId,
+          {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -155,9 +167,6 @@ let displayPublication = (publication) => {
       }
     });
   }
-  console.log(document.querySelector('.claps-btn'));
-
-  displayComments(publication);
 };
 
 let displayComments = (publication) => {
@@ -173,11 +182,11 @@ let displayComments = (publication) => {
   allComments.forEach((comment) => {
     comments += `<div class="comment">
       <div>
-       <p>${comment.date}</p>
-       <p>${comment.author.name} ${comment.author.surname}</p>
+       <p class="comment-date">${comment.date}</p>
+       <p class="comment-author-name">${comment.author.name} ${comment.author.surname}</p>
       </div>
       <div>
-       <p>${comment.comment}</p>
+       <p class="comment-content">${comment.comment}</p>
       </div>
      </div>`;
   });
@@ -217,11 +226,12 @@ let postComment = async (id) => {
 
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/publication/comment/' + id, {
+        'http://localhost:3000/blog/publication/comment/' + id,
+        {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'author-auth': token
+            'author-auth': token,
           },
           body: JSON.stringify(data),
         }
