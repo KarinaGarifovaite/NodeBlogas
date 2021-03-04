@@ -15,6 +15,7 @@ let getAllPublications = async () => {
     let items = await response.json();
     console.log(items);
     publications = items;
+    publications.sort((a, b) => a.publicationDate > b.publicationDate ? -1 : 1)
     displayAllPublications(items);
   } catch (e) {
     console.log(e);

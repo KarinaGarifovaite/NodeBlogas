@@ -9,8 +9,10 @@
   <link rel="stylesheet" href="../styles/header.css" />
   <link rel="stylesheet" href="../styles/main.css" />
   <link rel="stylesheet" href="../styles/footer.css" />
+  <link rel="stylesheet" href="../styles/homepage.css">
   <script defer src="../scripts/main.js"></script>
-  <script defer src="../scripts/currentDate.js"></script>
+  <script defer src="../scripts/header.js"></script>
+  <script defer  src="../scripts/currentDate.js"></script>
 </head>
 
 <body>
@@ -18,11 +20,16 @@
     <nav class="navigation">
       <div class="logo">NodeBlog</div>
       <ul>
+        <li class="logout-avatar-home"><a class="nav-a" href="./main.html">Home</a></li>
         <li><a class="nav-a" href="./our-story.html">Our Story</a></li>
         <li><a class="nav-a" href="#">Write</a></li>
-        <li><a class="nav-a" id="log-in" href="./login.html">Log In</a></li>
-        <li>
+        <li class="loginAndGetStarted"><a class="nav-a" id="log-in" href="./login.html">Log In</a></li>
+        <li class="loginAndGetStarted">
           <a class="nav-a" id="get-started" href="../pages/resigtration.html">Get Started</a>
+        </li>
+        <li class="logout-avatar-home"><a class="nav-a logout">Log Out</a></li>
+        <li class="logout-avatar-home">
+          <img id="header-avatar-home" src="../assets/blank-profile.png" class="img-conteiner" alt="avatarImg" />
         </li>
       </ul>
     </nav>
@@ -44,9 +51,8 @@
       </div>
     </section>
     <hr />
-    <h3 class="whats-new">WHAT'S NEW</h3>
     <section class="sec-2">
-
+      <h3>TRENDING SECTION</h3>
     </section>
   </main>
   <footer>
