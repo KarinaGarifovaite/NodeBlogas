@@ -1,55 +1,54 @@
 window.addEventListener('DOMContentLoaded', () => {
-    token = localStorage.getItem('author-auth');
-    getAllPublications();
+  token = localStorage.getItem('author-auth');
+  getAllPublications();
 });
 
 let getAllPublications = async () => {
-    try {
-        let response = await fetch('http://localhost:3000/blog/publication', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'author-auth': token,
-            },
-        });
-        let items = await response.json();
-        console.log(items);
-        publications = items;
-        publications.sort((a, b) => a.claps > b.claps ? -1 : 1)
-        displayAllPublications(items);
-    } catch (e) {
-        console.log(e);
-    }
+  try {
+    let response = await fetch('http://localhost:3000/blog/publication', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'author-auth': token,
+      },
+    });
+    let items = await response.json();
+    publications = items;
+    publications.sort((a, b) => a.claps > b.claps ? -1 : 1)
+    displayAllPublications(items);
+  } catch (e) {
+    console.log(e);
+  }
 };
 let displayAllPublications = (items) => {
-    let publications = document.querySelector('.all-trending');
-    let publicationsItems = '';
-    let date;
-    let month;
-    let year;
-    let dateStr;
+  let publications = document.querySelector('.all-trending');
+  let publicationsItems = '';
+  let date;
+  let month;
+  let year;
+  let dateStr;
 
-    items.forEach((item, index) => {
-        dateStr = '';
-        if (item.publicationDate) {
-            let publicationDate = new Date(item.publicationDate);
-            year = publicationDate.getFullYear();
-            date = publicationDate.getDate();
-            month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
+  items.forEach((item, index) => {
+    dateStr = '';
+    if (item.publicationDate) {
+      let publicationDate = new Date(item.publicationDate);
+      year = publicationDate.getFullYear();
+      date = publicationDate.getDate();
+      month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
 
-            dateStr = date + '/' + month + '/' + year;
-        }
-        let avatarURL = '';
-        if (item.author.avatarURL) {
-            avatarURL = `src = "http://localhost:3000/${item.author.avatarURL}"`;
-        }
+      dateStr = date + '/' + month + '/' + year;
+    }
+    let avatarURL = '';
+    if (item.author.avatarURL) {
+      avatarURL = `src = "http://localhost:3000/${item.author.avatarURL}"`;
+    }
 
-        let imageURL = '';
-        if (item.imageURL) {
-            imageURL = `src = 'http://localhost:3000/${item.imageURL}'`;
-        }
+    let imageURL = '';
+    if (item.imageURL) {
+      imageURL = `src = 'http://localhost:3000/${item.imageURL}'`;
+    }
 
-        publicationsItems += `
+    publicationsItems += `
       <div class="publicationContainer">
       <div class="one-of-publication">
         <span class="place">${index + 1}</span>
@@ -80,6 +79,6 @@ let displayAllPublications = (items) => {
         </div>
       </div>
         `;
-        publications.innerHTML = publicationsItems;
-    });
+    publications.innerHTML = publicationsItems;
+  });
 };

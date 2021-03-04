@@ -136,15 +136,29 @@
   width: 90%;
 }
 
-.comment-input div label {
-  display: none;
+.comment-author-cont {
+  display: flex;
+  align-items: center;
+}
+
+.comment-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 #comment {
   margin-bottom: 10px;
+  padding: 10px;
   width: 80%;
   height: 60px;
   border: 1px solid rgb(206, 209, 212);
+}
+
+.one-more-error {
+  display: none;
+  color: red;
+  font-size: 12px;
 }
 
 .submitBtn {

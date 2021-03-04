@@ -21,7 +21,7 @@ getAllAuthors = async () => {
       } else {
         imgUrl = `src= 'http://localhost:3000/${author.avatarURL}'`;
       }
-      console.log(imgUrl);
+
       output += `
             <div class="author-item">
             <div class="author-img-cont">

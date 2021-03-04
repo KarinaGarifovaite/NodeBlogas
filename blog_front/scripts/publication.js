@@ -18,8 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 let getPublication = async (id) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publicationInfo/' + id,
-      {
+      'http://localhost:3000/blog/publicationInfo/' + id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +29,6 @@ let getPublication = async (id) => {
     if (response.status != 200) throw await response.json();
     let publication = await response.json();
     displayPublication(publication);
-    console.log(publication);
   } catch (err) {
     console.log(err);
   }
@@ -39,33 +37,7 @@ let getPublication = async (id) => {
 let displayPublication = (publication) => {
   let publicationPlace = document.querySelector('.publicationContainer');
   let publicationItem = '';
-  // let date;
-  // let month;
-  // let year;
-  // let dateStr;
-  // let seconds;
-  // let minutes;
-  // let hour;
-  // let publicationDate = new Date(publication.publicationDate);
-  // year = publicationDate.getFullYear();
-  // date = publicationDate.getDate();
-  // month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
-  // hour = publicationDate.getHours();
-  // minutes = publicationDate.getMinutes();
-  // seconds = publicationDate.getSeconds();
 
-  // dateStr =
-  //   date +
-  //   '/' +
-  //   month +
-  //   '/' +
-  //   year +
-  //   ' ' +
-  //   hour +
-  //   ':' +
-  //   minutes +
-  //   ':' +
-  //   seconds;
 
   let avatarImgUrl = '';
   if (!publication.author.avatarURL) {
@@ -155,8 +127,7 @@ let displayClaps = () => {
     claps.addEventListener('click', async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/blog/publication/' + publicationId,
-          {
+          'http://localhost:3000/blog/publication/' + publicationId, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -183,8 +154,6 @@ let displayComments = (publication) => {
   let commentsPlace = document.querySelector('.comments__section');
   let comments = '';
 
-  console.log(publication);
-
   comments = `
    <div class="all_comments">`;
 
@@ -192,10 +161,9 @@ let displayComments = (publication) => {
   allComments.forEach((comment) => {
     comments += `<div class="comment">
       <div>
-       <p class="comment-date">${buildDate(comment.date)}</p>
-       <p class="comment-author-name">${comment.author.name} ${
-      comment.author.surname
-    }</p>
+       <div class="comment-author-cont">  <img class="comment-img" src="http://localhost:3000/${comment.author.avatarURL}" >
+       <p class="comment-author-name">${comment.author.name} ${comment.author.surname}</p></div> 
+      <p class="comment-date">${buildDate(comment.date)}</p>
       </div>
       <div>
        <p class="comment-content">${comment.comment}</p>
@@ -207,11 +175,11 @@ let displayComments = (publication) => {
 
    <div class="comment-input">
       <div>
-        <label for="comment">Your Comment</label>
-        <input type="text" name="name" id="comment" />
+        <textarea type="text" name="name" id="comment" placeholder="Your comment"></textarea>
       </div>
       <div>
-        <button class="submitBtn">Submit Comment</button>
+        <button class="submitBtn">Comment</button>
+        <p class="one-more-error"></p>
       </div>
    </div>
 
@@ -227,7 +195,6 @@ let displayComments = (publication) => {
 };
 
 let postComment = async (id) => {
-  console.log('testas');
   let commentInputValue = document.getElementById('comment').value;
   if (commentInputValue != '') {
     let data = {
@@ -238,8 +205,7 @@ let postComment = async (id) => {
 
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/publication/comment/' + id,
-        {
+        'http://localhost:3000/blog/publication/comment/' + id, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

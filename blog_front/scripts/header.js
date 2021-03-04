@@ -1,4 +1,3 @@
-console.log(localStorage.getItem("author-auth"));
 let logoutButton = document.querySelector('.logout');
 
 window.addEventListener('DOMContentLoaded', () => {
