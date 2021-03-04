@@ -7,7 +7,7 @@ let editAuthorBtn = document.getElementById('edit-authorInfo');
 let editBioBtn = document.querySelectorAll('.editBtn');
 let saveBioBtn = document.querySelectorAll('.saveBtn');
 let publishBtn = document.querySelector('#pub-submit');
-let deleteAccountBtn = document.querySelector('#delete-account')
+let deleteAccountBtn = document.querySelector('#delete-account');
 let authorPublications = [];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -99,7 +99,6 @@ let getUsernameOnHeader = async () => {
 document
   .getElementById('profile-img-input')
   .addEventListener('change', async (e) => {
-
     if (
       document.getElementById('profile-img-input').isDefaultNamespace.length ===
       0
@@ -107,7 +106,7 @@ document
       return;
     let file = document.getElementById('profile-img-input').files[0];
     let formData = new FormData();
-    let errorMessage = document.querySelector('.error-message')
+    let errorMessage = document.querySelector('.error-message');
     formData.append('test', file);
     try {
       const response = await fetch(
@@ -121,12 +120,11 @@ document
       );
       displayProfilePhoto();
       if (response.status != 200) {
-        errorMessage.innerText = `Something went wrong. Please make sure your file is one of the following types:  .jpeg, .jpg, .png or .gif`
+        errorMessage.innerText = `Something went wrong. Please make sure your file is one of the following types:  .jpeg, .jpg, .png or .gif`;
       }
     } catch (e) {
       console.log(e);
     }
-
   });
 
 // author's info in modale
@@ -179,7 +177,6 @@ updateAndSaveInfo = async () => {
     });
     if (response.status != 200) throw await response.json();
     let author = await response.json();
-
   } catch (err) {
     console.log(err);
   }
@@ -199,17 +196,17 @@ let editInfo = (e) => {
     nameInput.readOnly = false;
     surnameInput.readOnly = false;
   } else if (e.target.classList.contains('editBtn2')) {
-    saveBioBtn2.style.display = ('inline')
+    saveBioBtn2.style.display = 'inline';
     bioInput.readOnly = false;
   }
 
   saveBioBtn1.addEventListener('click', () => {
     nameInput.readOnly = true;
     surnameInput.readOnly = true;
-  })
+  });
   saveBioBtn2.addEventListener('click', () => {
     bioInput.readOnly = true;
-  })
+  });
 };
 
 // Save publication to server
@@ -280,7 +277,7 @@ let getAllAuthorPublications = async () => {
         headers: {
           'Content-Type': 'application/json',
           'author-auth': token,
-        }
+        },
       }
     );
     let items = await response.json();
@@ -336,22 +333,22 @@ let removeItem = async (id, index) => {
 let previewPost = (index) => {
   let content = document.querySelector(`.content${index}`);
   let title = document.querySelector(`.textareaTitle`);
-  content.readOnly = true
-  title.readOnly = true
-  content.style.display = "block"
-  content.innerText = authorPublications[index].content
+  content.readOnly = true;
+  title.readOnly = true;
+  content.style.display = 'block';
+  content.innerText = authorPublications[index].content;
 };
 // edit post in author home page
-let editPost = index => {
+let editPost = (index) => {
   let content = document.querySelector(`.content${index}`);
-  let title = document.querySelector(`.textareaTitle`)
-  let btnSave = document.querySelector(`.btnSave${index}`)
-  btnSave.style.display = "block"
-  content.style.display = "block"
-  content.innerText = authorPublications[index].content
+  let title = document.querySelector(`.textareaTitle`);
+  let btnSave = document.querySelector(`.btnSave${index}`);
+  btnSave.style.display = 'block';
+  content.style.display = 'block';
+  content.innerText = authorPublications[index].content;
   content.readOnly = false;
   title.readOnly = false;
-}
+};
 let updateAndSavePost = async (id) => {
   let title = document.querySelector('.textareaTitle')
   let content = document.querySelector(`.textareaContent`)
@@ -359,29 +356,30 @@ let updateAndSavePost = async (id) => {
   let data = {
     title: title.value,
     content: content.value,
-    _id: id
-  }
+    _id: id,
+  };
   try {
     let response = await fetch('http://localhost:3000/blog/publication', {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'author-auth': token
+        'author-auth': token,
       },
-      body: JSON.stringify(data)
-    })
-    title.readOnly = true
-    content.readOnly = true
+      body: JSON.stringify(data),
+    });
+
+    let updated = await response.json();
+    title.readOnly = true;
+    content.readOnly = true;
   } catch (e) {
     console.log(e);
   }
-}
-// explore permetimas i main page be headerio 
+};
+// explore permetimas i main page be headerio
 let exploreToMainPage = () => {
-  window.location = '../pages/main.html'
-  let header = document.querySelector('.homepage-links')
-
-}
+  window.location = '../pages/main.html';
+  let header = document.querySelector('.homepage-links');
+};
 
 // Delete my account
 
@@ -393,14 +391,13 @@ let deleteAccount = async () => {
         'Content-Type': 'application/json',
         'author-auth': token,
       },
-    })
+    });
     if (response.status != 200) throw await response.json();
-    window.location.href = '../pages/main.html'
+    window.location.href = '../pages/main.html';
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-
-}
+};
 
 // Events
 
@@ -427,8 +424,8 @@ document.getElementById('avatar-upload').addEventListener(
   false
 );
 
-editBioBtn.forEach(btn => {
-  btn.addEventListener('click', editInfo)
+editBioBtn.forEach((btn) => {
+  btn.addEventListener('click', editInfo);
 });
 
 saveBioBtn.forEach((btn) =>
@@ -437,7 +434,6 @@ saveBioBtn.forEach((btn) =>
     saveBioBtn.forEach((btn) => {
       btn.style.display = 'none';
     });
-
   })
 );
 
