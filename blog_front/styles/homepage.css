@@ -1,7 +1,9 @@
 html {
   scroll-behavior: smooth;
 }
-
+.pabandymui {
+  display: block;
+}
 .navigation ul {
   width: 65%;
   align-items: center;
