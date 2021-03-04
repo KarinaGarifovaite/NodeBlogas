@@ -18,7 +18,8 @@ window.addEventListener('DOMContentLoaded', () => {
 let getPublication = async (id) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publicationInfo/' + id, {
+      'http://localhost:3000/blog/publicationInfo/' + id,
+      {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +54,18 @@ let displayPublication = (publication) => {
   minutes = publicationDate.getMinutes();
   seconds = publicationDate.getSeconds();
 
-  dateStr = date + '/' + month + '/' + year + ' ' + hour + ':' + minutes + ':' + seconds;
+  dateStr =
+    date +
+    '/' +
+    month +
+    '/' +
+    year +
+    ' ' +
+    hour +
+    ':' +
+    minutes +
+    ':' +
+    seconds;
 
   let avatarImgUrl = '';
   if (!publication.author.avatarURL) {
@@ -108,20 +120,23 @@ let displayPublication = (publication) => {
       </div>
       <div class="feedback__comments">
         <i class="far fa-comment"></i>
-        <p>2 comments</p>
+        <p class ="comments-length">0</p>
+      </div>
+      <div class="comments__section">
       </div>
     </div>
         `;
   publicationPlace.innerHTML = publicationItem;
   let claps = document.querySelector('.claps-btn');
   let clapsAmount = document.querySelector('.claps-amount');
-  let feedbackError = document.querySelector('.feedback-error')
-  let clapIcon = document.querySelector('.clap')
+  let feedbackError = document.querySelector('.feedback-error');
+  let clapIcon = document.querySelector('.clap');
   if (claps != null) {
     claps.addEventListener('click', async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/blog/publication/' + publicationId, {
+          'http://localhost:3000/blog/publication/' + publicationId,
+          {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -131,16 +146,96 @@ let displayPublication = (publication) => {
         );
 
         if (response.status != 200) {
-          return feedbackError.innerText = `You need to log in.`
-        };
+          return (feedbackError.innerText = `You need to log in.`);
+        }
         let publicationClaps = await response.json();
         console.log(publicationClaps);
         clapsAmount.innerText = publicationClaps;
-        clapIcon.src = '../assets/claped.png'
+        clapIcon.src = '../assets/claped.png';
       } catch (err) {
         console.log(err);
       }
     });
   }
   console.log(document.querySelector('.claps-btn'));
+
+  displayComments(publication);
+};
+
+let displayComments = (publication) => {
+  let commentsPlace = document.querySelector('.comments__section');
+  let comments = '';
+
+  console.log(publication);
+
+  comments = `
+   <div class="all_comments">`;
+
+  let allComments = publication.comments;
+  allComments.forEach((comment) => {
+    comments += `<div class="comment">
+      <div>
+       <p>${comment.date}</p>
+       <p>${comment.author.name} ${comment.author.surname}</p>
+      </div>
+      <div>
+       <p>${comment.comment}</p>
+      </div>
+     </div>`;
+  });
+
+  comments += ` </div>
+
+   <div class="comment-input">
+      <div>
+        <label for="comment">Your Comment</label>
+        <input type="text" name="name" id="comment" />
+      </div>
+      <div>
+        <button class="submitBtn">Submit Comment</button>
+      </div>
+   </div>
+
+
+  `;
+
+  commentsPlace.innerHTML = comments;
+  document.querySelector('.comments-length').innerText = allComments.length;
+  document.querySelector('.submitBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    postComment(publication._id);
+  });
+};
+
+let postComment = async (id) => {
+  console.log('testas');
+  let commentInputValue = document.getElementById('comment').value;
+  if (commentInputValue != '') {
+    let data = {
+      comment: commentInputValue,
+    };
+
+    console.log(data);
+
+    try {
+      const response = await fetch(
+        'http://localhost:3000/blog/publication/comment/' + id,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'author-auth':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDM2OWY1YmNhYmU1MTQ0OTBhM2UxOGQiLCJpYXQiOjE2MTQ3OTgyNTV9.9F5glv7_5O6np-HOY_q6UGOuIicamPvcJU84bqG7Udc',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (response.status != 200) throw await response.json();
+      let publication = await response.json();
+      console.log(publication);
+      displayComments(publication);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };

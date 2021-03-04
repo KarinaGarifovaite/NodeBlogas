@@ -31,7 +31,15 @@ let savePublicationPhoto = async (req, res) => {
 let getAllPublications = async (req, res) => {
   try {
     let allPublications = await Publication.find({})
-      .populate('author');
+      .populate('author')
+      .populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: {
+          path: 'author',
+          model: 'Author',
+        },
+      });
     res.json(allPublications);
     console.log(allPublications);
   } catch (e) {
@@ -66,7 +74,8 @@ let deletePublication = async (req, res) => {
 let updatePublication = async (req, res) => {
   let publicationId = req.body._id;
   try {
-    let updatedPublication = await Publication.findOneAndUpdate({
+    let updatedPublication = await Publication.findOneAndUpdate(
+      {
         _id: publicationId,
       },
       req.body
@@ -80,15 +89,19 @@ let updatePublication = async (req, res) => {
 let saveClaps = async (req, res) => {
   let publicationId = req.params.id;
   try {
-    let clapedPublication = await Publication.findOneAndUpdate({
-      _id: publicationId,
-    }, {
-      $inc: {
-        claps: 1
+    let clapedPublication = await Publication.findOneAndUpdate(
+      {
+        _id: publicationId,
+      },
+      {
+        $inc: {
+          claps: 1,
+        },
+      },
+      {
+        new: true,
       }
-    }, {
-      new: true,
-    });
+    );
     res.json(clapedPublication.claps);
   } catch (err) {
     res.status(404).json(err);
@@ -100,7 +113,16 @@ let getPublicationInfoById = async (req, res) => {
   try {
     let publication = await Publication.findOne({
       _id: publicationId,
-    }).populate('author');
+    })
+      .populate('author')
+      .populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: {
+          path: 'author',
+          model: 'Author',
+        },
+      });
     res.json(publication);
   } catch (e) {
     res.status(400).json(e);
