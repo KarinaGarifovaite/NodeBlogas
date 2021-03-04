@@ -39,33 +39,33 @@ let getPublication = async (id) => {
 let displayPublication = (publication) => {
   let publicationPlace = document.querySelector('.publicationContainer');
   let publicationItem = '';
-  let date;
-  let month;
-  let year;
-  let dateStr;
-  let seconds;
-  let minutes;
-  let hour;
-  let publicationDate = new Date(publication.publicationDate);
-  year = publicationDate.getFullYear();
-  date = publicationDate.getDate();
-  month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
-  hour = publicationDate.getHours();
-  minutes = publicationDate.getMinutes();
-  seconds = publicationDate.getSeconds();
+  // let date;
+  // let month;
+  // let year;
+  // let dateStr;
+  // let seconds;
+  // let minutes;
+  // let hour;
+  // let publicationDate = new Date(publication.publicationDate);
+  // year = publicationDate.getFullYear();
+  // date = publicationDate.getDate();
+  // month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
+  // hour = publicationDate.getHours();
+  // minutes = publicationDate.getMinutes();
+  // seconds = publicationDate.getSeconds();
 
-  dateStr =
-    date +
-    '/' +
-    month +
-    '/' +
-    year +
-    ' ' +
-    hour +
-    ':' +
-    minutes +
-    ':' +
-    seconds;
+  // dateStr =
+  //   date +
+  //   '/' +
+  //   month +
+  //   '/' +
+  //   year +
+  //   ' ' +
+  //   hour +
+  //   ':' +
+  //   minutes +
+  //   ':' +
+  //   seconds;
 
   let avatarImgUrl = '';
   if (!publication.author.avatarURL) {
@@ -95,7 +95,7 @@ let displayPublication = (publication) => {
         </div>
         <div class="author-info">
           <h4>${publication.author.name} ${publication.author.surname}</h4>
-          <p>${dateStr}</p>
+          <p>${buildDate(publication.publicationDate)}</p>
         </div>
       </div>
     </div>
@@ -122,18 +122,28 @@ let displayPublication = (publication) => {
         <i class="far fa-comment"></i>
         <p class ="comments-length">0</p>
       </div>
-      <div class="comments__section">
+      <div class="comments__section" id="hidden">
       </div>
     </div>
         `;
   publicationPlace.innerHTML = publicationItem;
-  // document.querySelector(".feedback__comments").addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   let comments
-
-  // })
   displayClaps();
   displayComments(publication);
+
+  document
+    .querySelector('.feedback__comments')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      let comments = document.querySelector('#hidden');
+      let comments2 = document.querySelector('.comments__section');
+      if (comments) {
+        comments.style.display = 'flex';
+        comments.removeAttribute('id');
+      } else {
+        comments2.style.display = 'none';
+        comments2.setAttribute('id', 'hidden');
+      }
+    });
 };
 
 let displayClaps = () => {
@@ -182,8 +192,10 @@ let displayComments = (publication) => {
   allComments.forEach((comment) => {
     comments += `<div class="comment">
       <div>
-       <p class="comment-date">${comment.date}</p>
-       <p class="comment-author-name">${comment.author.name} ${comment.author.surname}</p>
+       <p class="comment-date">${buildDate(comment.date)}</p>
+       <p class="comment-author-name">${comment.author.name} ${
+      comment.author.surname
+    }</p>
       </div>
       <div>
        <p class="comment-content">${comment.comment}</p>
@@ -244,4 +256,36 @@ let postComment = async (id) => {
       console.log(err);
     }
   }
+};
+
+let buildDate = (dateparametre) => {
+  let date;
+  let month;
+  let year;
+  let dateStr;
+  let seconds;
+  let minutes;
+  let hour;
+  let publicationDate = new Date(dateparametre);
+  year = publicationDate.getFullYear();
+  date = publicationDate.getDate();
+  month = publicationDate.getMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
+  hour = publicationDate.getHours();
+  minutes = publicationDate.getMinutes();
+  seconds = publicationDate.getSeconds();
+
+  dateStr =
+    date +
+    '/' +
+    month +
+    '/' +
+    year +
+    ' ' +
+    hour +
+    ':' +
+    minutes +
+    ':' +
+    seconds;
+
+  return dateStr;
 };
