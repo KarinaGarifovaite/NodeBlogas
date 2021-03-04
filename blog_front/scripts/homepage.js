@@ -304,7 +304,7 @@ let displayAllAuthorPublications = (items) => {
       <i class="far fa-trash-alt fa-lg" onclick="removeItem('${item._id}', ${index})" style="color: var(--accent-color);"></i>
       </div>
       <div class="publicationsContainer__info">
-      <textarea class="textareaTitle" name="text"  wrap="soft" maxlength="100" readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
+      <textarea class="textareaTitle" name="text"  wrap="soft"  readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
       </div>
       <textarea class="content${index} textareaContent" style="display:none"> </textarea>
@@ -355,6 +355,7 @@ let editPost = index => {
 let updateAndSavePost = async (id) => {
   let title = document.querySelector('.textareaTitle')
   let content = document.querySelector(`.textareaContent`)
+
   let data = {
     title: title.value,
     content: content.value,

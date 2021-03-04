@@ -11,12 +11,13 @@
     color: var(--accent-color);
     font-size: 1.5em;
     font-weight: 500;
+    display: none;
 }
 
 .navigation ul {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 100%;
     list-style: none;
 }
 
@@ -24,7 +25,7 @@
     color: var(--text-color);
     text-decoration: none;
     text-transform: uppercase;
-    display: none;
+
 }
 
 .nav-a:hover {
@@ -53,6 +54,10 @@
 }
 
 @media screen and (min-width: 768px) {
+    .logo {
+        display: inline;
+    }
+
     .nav-a {
         display: inline;
     }
@@ -61,6 +66,11 @@
         display: inline;
     }
 
+    .navigation ul {
+
+        width: 60%;
+
+    }
 
 }
 
