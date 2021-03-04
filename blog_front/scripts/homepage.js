@@ -297,11 +297,11 @@ let displayAllAuthorPublications = (items) => {
       <div class="publicationsContainer__btns">
       <button class="btnPreview" onclick="previewPost(${index})">Preview</button>
       <button class="btnEdit" onclick="editPost(${index})">Edit</button>
-      <button class="btnSave${index}" style="display:none" onclick="updateAndSavePost('${item._id}')">Save</button>
+      <button class="btnSave${index}" style="display:none" onclick="updateAndSavePost('${item._id}', ${index})">Save</button>
       <i class="far fa-trash-alt fa-lg" onclick="removeItem('${item._id}', ${index})" style="color: var(--accent-color);"></i>
       </div>
       <div class="publicationsContainer__info">
-      <textarea class="textareaTitle" name="text"  wrap="soft"  readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
+      <textarea class="textareaTitle textareaTitle${index}" name="text"  wrap="soft" maxlength="100" readonly style="resize:none; overflow:hidden" >${item.title}</textarea>
       <img src="http://localhost:3000/${item.imageURL}" id="publication-img" alt="">
       </div>
       <textarea class="content${index} textareaContent" style="display:none"> </textarea>
@@ -333,48 +333,54 @@ let removeItem = async (id, index) => {
 let previewPost = (index) => {
   let content = document.querySelector(`.content${index}`);
   let title = document.querySelector(`.textareaTitle`);
-  content.readOnly = true;
-  title.readOnly = true;
-  content.style.display = 'block';
-  content.innerText = authorPublications[index].content;
+  content.readOnly = true
+  title.readOnly = true
+  if (content.style.display === "none") {
+    content.style.display = "block"
+  } else {
+    content.style.display = "none"
+  }
+  // content.style.cursor =  "not-allowed";
+  // title.style.cursor =  "not-allowed";
+  content.innerText = authorPublications[index].content
 };
 // edit post in author home page
-let editPost = (index) => {
+let editPost = index => {
   let content = document.querySelector(`.content${index}`);
-  let title = document.querySelector(`.textareaTitle`);
-  let btnSave = document.querySelector(`.btnSave${index}`);
-  btnSave.style.display = 'block';
-  content.style.display = 'block';
-  content.innerText = authorPublications[index].content;
+  let title = document.querySelector(`.textareaTitle${index}`)
+  let btnSave = document.querySelector(`.btnSave${index}`)
+  btnSave.style.display = "block"
+  content.style.display = "block"
+  content.innerText = authorPublications[index].content
   content.readOnly = false;
   title.readOnly = false;
-};
-let updateAndSavePost = async (id) => {
-  let title = document.querySelector('.textareaTitle')
-  let content = document.querySelector(`.textareaContent`)
+}
+let updateAndSavePost = async (id, index) => {
+  let title = document.querySelector(`.textareaTitle${index}`)
+  let content = document.querySelector(`.content${index}`)
+  let btnSave = document.querySelector(`.btnSave${index}`)
 
   let data = {
     title: title.value,
     content: content.value,
-    _id: id,
-  };
+    _id: id
+  }
   try {
     let response = await fetch('http://localhost:3000/blog/publication', {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
-        'author-auth': token,
+        'author-auth': token
       },
-      body: JSON.stringify(data),
-    });
-
-    let updated = await response.json();
-    title.readOnly = true;
-    content.readOnly = true;
+      body: JSON.stringify(data)
+    })
+    title.readOnly = true
+    content.readOnly = true
+    btnSave.style.display = "none"
   } catch (e) {
     console.log(e);
   }
-};
+}
 // explore permetimas i main page be headerio
 let exploreToMainPage = () => {
   window.location = '../pages/main.html';

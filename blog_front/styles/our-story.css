@@ -192,6 +192,10 @@
   .go-sign {
     width: 40%;
   }
+
+  .navigation ul {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 1024px) {

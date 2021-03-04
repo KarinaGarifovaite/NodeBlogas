@@ -242,6 +242,10 @@
         margin-left: 20px;
         text-align: left;
     }
+
+    .navigation ul {
+        width: 50%;
+    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -287,5 +291,9 @@
     .trending-stories h2 {
         font-size: 3.5em;
 
+    }
+
+    .navigation ul {
+        width: 40%;
     }
 }
