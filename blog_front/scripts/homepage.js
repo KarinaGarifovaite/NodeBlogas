@@ -197,7 +197,6 @@ let savePublication = async (e) => {
   };
 
 
-
   try {
     const response = await fetch('http://localhost:3000/blog/publication', {
       method: 'POST',
@@ -238,6 +237,7 @@ let getAllAuthorPublications = async () => {
 let displayAllAuthorPublications = (items) => {
   let publications = document.querySelector('.my-publications');
   let publicationsItems = '';
+
   items.forEach((item, index) => {
     publicationsItems += `
       <div class="publicationsContainer">
@@ -304,7 +304,6 @@ let updateAndSavePost = async (id, index) => {
   let title = document.querySelector(`.textareaTitle${index}`)
   let content = document.querySelector(`.content${index}`)
   let btnSave = document.querySelector(`.btnSave${index}`)
-
   let data = {
     title: title.value,
     content: content.value,
