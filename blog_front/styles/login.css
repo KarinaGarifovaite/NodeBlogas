@@ -6,6 +6,11 @@ main {
   align-items: center;
 }
 
+.nav-a {
+  font-size: 12px;
+
+}
+
 h3 {
   margin: 20px 0;
   font-size: 2em;
@@ -88,6 +93,11 @@ form input:focus {
 @media screen and (min-width: 768px) {
   form {
     width: 50%;
+  }
+
+  .nav-a {
+    font-size: 15px;
+
   }
 }
 

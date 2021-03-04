@@ -70,7 +70,6 @@
   margin-right: 5px;
   width: 30px;
   height: 30px;
-
 }
 
 
@@ -85,6 +84,8 @@
 .feedback-error {
   font-size: 12px;
   color: var(--accent-color);
+  margin-left: 25px;
+
 }
 
 .container-feedback>div {
@@ -115,8 +116,57 @@
   border-bottom: 1px solid var(--accent-color);
 }
 
+.comment-date {
+  padding-left: 10px;
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.comment-author-name {
+  padding-left: 10px;
+  margin: 5px 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.comment-content {
+  margin: 20px 0;
+  padding: 10px 20px;
+  background: rgb(232, 235, 238);
+  border-radius: 20px;
+  font-size: 15px;
+}
+
 .comment-input {
   width: 90%;
+}
+
+.comment-input div label {
+  display: none;
+}
+
+#comment {
+  margin-bottom: 10px;
+  width: 80%;
+  height: 60px;
+  border: 1px solid rgb(206, 209, 212);
+}
+
+.submitBtn {
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.submitBtn:hover {
+  border: 1px solid var(--accent-color);
+  background: transparent;
+  color: var(--accent-color);
+}
+
+.submitBtn:focus {
+  outline: none;
 }
 
 .hidden {
@@ -144,8 +194,21 @@
     width: 80%;
   }
 
-  .container-feedback {
+  /* .container-feedback {
     margin-left: 100px;
+  } */
+
+  .comment-content {
+    width: 50%;
+  }
+
+  #comment {
+    width: 50%;
+  }
+
+  .feedback-error {
+    margin-left: 40px;
+
   }
 }
 
@@ -171,6 +234,12 @@
   }
 
   .container-feedback {
-    margin-left: 150px;
+    margin-left: 100px;
+    width: 70%;
+  }
+
+  .feedback-error {
+    margin-left: 50px;
+
   }
 }
