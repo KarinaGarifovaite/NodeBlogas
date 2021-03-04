@@ -18,8 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 let getPublication = async (id) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/blog/publicationInfo/' + id,
-      {
+      'http://localhost:3000/blog/publicationInfo/' + id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -135,8 +134,7 @@ let displayPublication = (publication) => {
     claps.addEventListener('click', async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/blog/publication/' + publicationId,
-          {
+          'http://localhost:3000/blog/publication/' + publicationId, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -219,13 +217,11 @@ let postComment = async (id) => {
 
     try {
       const response = await fetch(
-        'http://localhost:3000/blog/publication/comment/' + id,
-        {
+        'http://localhost:3000/blog/publication/comment/' + id, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'author-auth':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDM2OWY1YmNhYmU1MTQ0OTBhM2UxOGQiLCJpYXQiOjE2MTQ3OTgyNTV9.9F5glv7_5O6np-HOY_q6UGOuIicamPvcJU84bqG7Udc',
+            'author-auth': token
           },
           body: JSON.stringify(data),
         }
