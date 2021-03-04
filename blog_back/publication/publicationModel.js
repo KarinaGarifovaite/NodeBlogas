@@ -29,6 +29,12 @@ let PublicationSchema = new mongoose.Schema({
     required: true,
     ref: 'Author',
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
 });
 
 let Publication = mongoose.model('Publication', PublicationSchema);

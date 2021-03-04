@@ -35,9 +35,11 @@ function checkFileType(file, cb) {
 
 const AuthorController = require('../author/authorController');
 const PublicationController = require('../publication/publicationController');
+const CommentController = require('../comments/commentsControler');
 const UserMiddleware = require('../author/authentity');
 const Author = require('../author/authorModel');
 const Publication = require('../publication/publicationModel');
+const Comment = require('../comments/commentsModel');
 
 router.get('/', (req, res) => {
   res.send('Hello World!');
@@ -70,7 +72,7 @@ router.get('/allAuthors', AuthorController.getAllAuthors);
 
 router.patch('/author', UserMiddleware, AuthorController.updateAuthorInfo);
 
-router.delete('/author', UserMiddleware, AuthorController.deleteAuthor)
+router.delete('/author', UserMiddleware, AuthorController.deleteAuthor);
 
 //all Publication routes
 
@@ -99,6 +101,16 @@ router.post(
   PublicationController.saveClaps
 );
 
-router.get('/publicationInfo/:id', PublicationController.getPublicationInfoById);
+router.get(
+  '/publicationInfo/:id',
+  PublicationController.getPublicationInfoById
+);
+
+//all Comments routes
+router.post(
+  '/publication/comment/:id',
+  UserMiddleware,
+  CommentController.createComment
+);
 
 module.exports = router;
