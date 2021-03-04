@@ -24,7 +24,7 @@ let createComment = async (req, res) => {
       }, {
         new: true,
       })
-      .populate('author')
+      .populate('author') //publikacijos autorius
       .populate({
         path: 'comments',
         model: 'Comment',
@@ -32,7 +32,7 @@ let createComment = async (req, res) => {
           path: 'author',
           model: 'Author',
         },
-      });
+      }); // komentaro autorius
 
 
     res.json(publication);
